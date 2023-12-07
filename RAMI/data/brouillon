@@ -1,0 +1,8 @@
+le fichier atomes.txt contient quelques instances de données pour pouvoir tester le programme
+Il y a une instance par ligne avec :
+atom1nombre1 atom2nombre2....
+l'ordre n'a pas d'importance
+
+Lignes 11 et 12 incohérente au niveau de la valence, pour tester ce que le programme fera
+(le but étant de ne retourner aucune solution dans ce cas // ou rajouter des liaison hydrogene
+mais à voir avec les chimistes)
