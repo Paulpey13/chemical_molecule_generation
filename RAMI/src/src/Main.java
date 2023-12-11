@@ -40,6 +40,7 @@ public class Main {
             Solution solution = model.getSolver().findSolution();
             if (solution != null) {
                 System.out.println(solution);
+
             } else {
                 System.out.println("Aucune solution trouvée.");
             }

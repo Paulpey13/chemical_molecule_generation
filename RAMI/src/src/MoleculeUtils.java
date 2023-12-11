@@ -12,6 +12,10 @@ public class MoleculeUtils {
 
     //Dictionnaire de valence pour chaques atomes
     public static final Map<String, Integer> VALENCE_MAP = new HashMap<>();
+    //Dictionnaire de valence pour chaques atomes
+
+    public static final Map<String, Integer> BOND_DISTANCES = new HashMap<>();
+
 
     static {
         addToMap(new String[]{"He", "Ne", "Ar"}, 0);
@@ -22,6 +26,10 @@ public class MoleculeUtils {
         //Y'a pas tout il faut finir de rajouter
 
         //La contrainte devra donc faire respecter chaque atome et sa valeur dans ce dico
+
+
+        //Distances :
+        loadBondDistances();
     }
 
     //Pour ajouter des elements au dico de valence sans faire 10000lignes
@@ -30,6 +38,8 @@ public class MoleculeUtils {
             VALENCE_MAP.put(element, valence);
         }
     }
+
+
 
 
 
