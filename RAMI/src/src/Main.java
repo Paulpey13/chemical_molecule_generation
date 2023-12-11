@@ -26,8 +26,8 @@ public class Main {
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        String data = "./RAMI/data/test.json";
-//        String data = "data/test.json"; //pour paul sinon ça marche pas
+        //String data = "./RAMI/data/test.json";
+        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(data)) {
@@ -44,13 +44,10 @@ public class Main {
 
             Solution solution = model.getSolver().findSolution();
             if (solution != null) {
-<<<<<<< HEAD
                 System.out.println(solution);
 
-=======
                 // ON affiche le graphe
                 System.out.println(var[0]);
->>>>>>> cce14e552a929d255ed95578299f012b8fcd0e20
             } else {
                 System.out.println("Aucune solution trouvée.");
             }
