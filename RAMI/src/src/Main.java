@@ -24,7 +24,8 @@ public class Main {
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        String data = "./RAMI/data/test.json";
+        //String data = "./RAMI/data/test.json";
+        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(data)) {
