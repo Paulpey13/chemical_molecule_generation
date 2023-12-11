@@ -15,12 +15,13 @@ import src.Atom;
 import src.MoleculeUtils;
 
 public class Modelisation {
+    private Model model;
     Modelisation(Atom atom){
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
 
         //Creation d'un model
-        Model model = new Model("Molecule Generation Problem");
+        model = new Model("Molecule Generation Problem");
 
         int n = atom.nbAtom();
 
@@ -37,25 +38,22 @@ public class Modelisation {
         IntVar[] degrees = new IntVar[n];
         int[] quantities = atom.getQuantities();
         String current_type = types[0];
-        int c = 1;
+        int c = 0;
         int indice_type = 0;
         for (int i = 0; i < n; i++) {
             if (c == quantities[indice_type]){
-                c = 1;
+                c = 0;
                 indice_type += 1;
             }
-            System.out.println(types[indice_type]);
-//            degrees[i] = model.intVar("d"+str(i),valenceMap.get(types[indice_type]));
+            String id = "id"+i;
+            degrees[i] = model.intVar(id,valenceMap.get(types[indice_type]));
             c += 1;
         }
-//        model.degrees(g,degrees).post();
+        model.degrees(g,degrees).post();
 
-        //Utilisation de choco
-        Solution solution = model.getSolver().findSolution();
-        if (solution != null) {
-            System.out.println(solution.toString());
-        } else {
-            System.out.println("Aucune solution trouvée.");
-        }
+    }
+
+    public Model getModel() {
+        return model;
     }
 }

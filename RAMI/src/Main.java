@@ -32,7 +32,16 @@ public class Main {
             System.out.println(atom);
 
             // Création de la modélisation
-//            Modelisation mod = new Modelisation(atom);
+            Modelisation mod = new Modelisation(atom);
+            Model model = mod.getModel();
+
+            // Résolution
+            Solution solution = model.getSolver().findSolution();
+            if (solution != null) {
+                System.out.println(solution);
+            } else {
+                System.out.println("Aucune solution trouvée.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
