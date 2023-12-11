@@ -32,7 +32,7 @@ public class Main {
             System.out.println(atom);
 
             // Création de la modélisation
-            Modelisation mod = new Modelisation(atom);
+//            Modelisation mod = new Modelisation(atom);
         } catch (IOException e) {
             e.printStackTrace();
         }

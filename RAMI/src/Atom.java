@@ -3,7 +3,7 @@ package src;
 import java.util.Arrays;
 
 public class Atom {
-    private String[] type;
+    private String[] types;
     private int[] quantities;
 
     public int nbAtom(){
@@ -13,8 +13,8 @@ public class Atom {
         }
         return sum;
     }
-    public String[] getType(){
-       return type;
+    public String[] getTypes(){
+       return types;
     }
 
     public int[] getQuantities() {
@@ -25,14 +25,14 @@ public class Atom {
         this.quantities = quantities;
     }
 
-    public void setType(String[] type) {
-        this.type = type;
+    public void setTypes(String[] types) {
+        this.types = types;
     }
 
     @Override
     public String toString() {
         return "Atom{" +
-                "type=" + Arrays.toString(type) +
+                "types=" + Arrays.toString(types) +
                 ", quantities=" + Arrays.toString(quantities) +
                 '}';
     }
