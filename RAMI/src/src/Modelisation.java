@@ -50,9 +50,7 @@ public class Modelisation {
             c += 1;
         }
         model.degrees(g,degrees).post();
-
     }
-
     public Model getModel() {
         return model;
     }
