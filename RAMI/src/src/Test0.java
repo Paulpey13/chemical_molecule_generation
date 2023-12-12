@@ -5,6 +5,7 @@ import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.RealVar;
 
+//Programme test var réelle du prof donné pendant la reunion 12/12/23
 public class Test0 {
 
 	public static void main(String[] args) {
