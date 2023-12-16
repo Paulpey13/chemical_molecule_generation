@@ -31,7 +31,7 @@ public class MoleculeUtils {
 
         //Distances :
         try {
-            loadBondDistances("data/distances");
+            loadBondDistances("./RAMI/data/distances");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -55,6 +55,7 @@ public class MoleculeUtils {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
+
                 String[] parts = line.split("\\s+");
                 String[] atoms = parts[0].split("-");
                 String[] distanceRange = parts[1].split("–");
@@ -64,7 +65,9 @@ public class MoleculeUtils {
                 if (distanceRange.length == 2) {
                     //Si un interval de var est fourni :
                     minDistance = Integer.parseInt(distanceRange[0]);
+                    System.out.println(minDistance);
                     maxDistance = Integer.parseInt(distanceRange[1]);
+
                 } else {
                     //Si y'a une seule variable fournie
                     minDistance = Integer.parseInt(distanceRange[0]) - 1;

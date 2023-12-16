@@ -13,6 +13,11 @@ public class Atom {
         }
         return sum;
     }
+
+    public int nbTypes(){
+        return quantities.length;
+    }
+
     public String[] getTypes(){
        return types;
     }
