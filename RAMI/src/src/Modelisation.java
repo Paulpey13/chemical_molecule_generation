@@ -12,6 +12,7 @@ import org.chocosolver.solver.variables.GraphVar;
 import org.chocosolver.util.objects.graphs.GraphFactory;
 import org.chocosolver.solver.variables.IntVar;
 
+import org.chocosolver.util.objects.setDataStructures.iterable.IntIterableRangeSet;
 import src.Atom;
 import src.MoleculeUtils;
 
@@ -42,10 +43,10 @@ public class Modelisation {
         RealVar [] xs = new RealVar[n];
         RealVar [] ys = new RealVar[n];
         RealVar [] zs = new RealVar[n];
-        int maxx = 10000 ; int minx = -10000;
-        int maxy = 10000 ; int miny = -10000;
-        int maxz = 10000 ; int minz = -10000;
-        double p = 0.001;
+        int maxx = 1000 ; int minx = -1000;
+        int maxy = 1000 ; int miny = -1000;
+        int maxz = 1000 ; int minz = -1000;
+        double p = 0.01d;
         // On fixe le premier atom à l'origine du repère (0;0;0;)
         xs[0] = model.realVar("x" + 0, 0, 0, p);
         ys[0] = model.realVar("y" + 0, 0, 0, p);
@@ -82,7 +83,7 @@ public class Modelisation {
         BoolVar[][] isConnected = new BoolVar[n][n];
         for(int i =0; i<n;i++){
             for(int j = 0 ; j <n; j++){
-                isConnected[i][j] = model.boolVar(i+"-"+j);
+                isConnected[i][j] = model.boolVar("L"+i+"-"+j);
                 model.edgeChanneling(g,isConnected[i][j], i, j).post();
             }
         }
@@ -111,17 +112,41 @@ public class Modelisation {
 
                 dist_min = distanceMap.get(current_type+"-"+second_type).getMinDistance();
                 dist_max = distanceMap.get(current_type+"-"+second_type).getMaxDistance();
+                dist_max = dist_max*dist_max;
+                dist_min = dist_min*dist_min;
                 System.out.println(current_type+" "+second_type+" dist ["+dist_min+","+dist_max+"]");
 
-                model.ifThen(isConnected[i][j],
-                        xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
-                                .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
-                                .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
-                                .ge(dist_min).equation());
-                model.ifThen(isConnected[i][j], xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                BoolVar b = model.boolVar("Bdmax"+i+"-"+j);
+                b = xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
                         .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
                         .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
-                        .le(dist_max).equation());
+                        .le(dist_max).equation().reify();
+
+                int sb = b.satVar();
+                // (i,j) dans G ==> distance(i,j) <= dist_max
+                model.addClause(model.neg(isConnected[i][j].satVar()), model.lit(sb));
+
+                BoolVar b2 = model.boolVar("Bdmin"+i+"-"+j);
+
+                b2 = xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                        .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
+                        .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
+                        .ge(dist_min).equation().reify();
+
+                int sb2 = b2.satVar();
+                // (i,j) dans G ==> distance(i,j) >= dist_min
+                model.addClause(model.neg(isConnected[i][j].satVar()), model.lit(sb2));
+
+                BoolVar b3 = model.boolVar("Bdmax2"+i+"-"+j);
+
+                b3 = xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                        .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
+                        .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
+                        .ge(dist_max).equation().reify();
+
+                int sb3 = b3.satVar();
+                // (i,j) pas dans G ==> distance(i,j) >= dist_max
+                model.addClause(model.lit(isConnected[i][j].satVar()), model.lit(sb3));
             }
         }
 

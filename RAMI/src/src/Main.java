@@ -5,8 +5,7 @@ import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.Solver;
-import org.chocosolver.solver.variables.GraphVar;
-import org.chocosolver.solver.variables.Variable;
+import org.chocosolver.solver.variables.*;
 import org.chocosolver.util.objects.graphs.UndirectedGraph;
 import org.chocosolver.util.objects.setDataStructures.SetType;
 import com.google.gson.Gson;
@@ -22,8 +21,7 @@ import java.util.List;
 import src.Atom;
 import src.Modelisation;
 
-import static org.chocosolver.solver.search.strategy.Search.activityBasedSearch;
-import static org.chocosolver.solver.search.strategy.Search.setVarSearch;
+import static org.chocosolver.solver.search.strategy.Search.*;
 
 
 public class Main {
@@ -48,22 +46,19 @@ public class Main {
             Solver solver = model.getSolver();
             Variable[] var = model.getVars();
 
-//            for (Constraint c : model.getCstrs()) {
-//                System.out.println("Contrainte: " + c);
-//            }
             // Définition de la stratégie de recherche
-            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) var[0]));
-
+//            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) var[0]));
+//            model.getSolver().setSearch(Search.inputOrderLBSearch(var[0]);
             Solution solution = model.getSolver().findSolution();
 //            List<Solution> sols = solver.findAllSolutions();
             if (solution != null) {
                 // ON affiche le graphe
                 System.out.println("Solutions");
-//                solver.printShortStatistics();
+                solver.printShortStatistics();
 //                solver.showSolutions();
 //                System.out.println(var[0]);
-                for(int i = 0; i<var.length; i++){
-                    System.out.println(var[i]);
+                for(int i = 1; i<10; i++){
+                    System.out.println(var[i].asRealVar());
                 }
 
             } else {
@@ -76,4 +71,5 @@ public class Main {
 
 
     }
+
 }

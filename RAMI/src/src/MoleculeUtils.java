@@ -65,7 +65,6 @@ public class MoleculeUtils {
                 if (distanceRange.length == 2) {
                     //Si un interval de var est fourni :
                     minDistance = Integer.parseInt(distanceRange[0]);
-                    System.out.println(minDistance);
                     maxDistance = Integer.parseInt(distanceRange[1]);
 
                 } else {
