@@ -5,6 +5,8 @@ import org.chocosolver.util.objects.graphs.UndirectedGraph;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CML_generator {
 
@@ -44,4 +46,20 @@ public class CML_generator {
         }
         writer.write("    </bondArray>\n");
     }
+
+    public static String[] buildAtomTypesArray(Atom atom) {
+        List<String> typesList = new ArrayList<>();
+        String[] types = atom.getTypes();
+        int[] quantities = atom.getQuantities();
+
+        for (int i = 0; i < types.length; i++) {
+            for (int j = 0; j < quantities[i]; j++) {
+                typesList.add(types[i]);
+            }
+        }
+
+        return typesList.toArray(new String[0]);
+    }
+
+
 }
