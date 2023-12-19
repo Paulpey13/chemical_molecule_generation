@@ -1,16 +1,47 @@
 package src;
-//Classe pour générer les fichiers CML
+
+import org.chocosolver.solver.variables.GraphVar;
+import org.chocosolver.util.objects.graphs.UndirectedGraph;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class CML_generator {
 
-
-    public boolean generate(String[] solutions) {
-
-        String CML_file=null;
-        //à générer selon le format généré par les solutions
-        //
-        return false;
+    public static void generateCMLFiles(GraphVar graphVar, String[] atomTypes) {
+        String fileName = "solution.cml";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            writer.write("<cml xmlns=\"http://www.xml-cml.org/schema\">\n");
+            writer.write("  <molecule id =\"1\">\n");
+            writeAtomsAndBonds(writer, graphVar, atomTypes);
+            writer.write("  </molecule>\n");
+            writer.write("</cml>\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
+    private static void writeAtomsAndBonds(BufferedWriter writer, GraphVar graphVar, String[] atomTypes) throws IOException {
+        UndirectedGraph graph = (UndirectedGraph) graphVar.getValue();
 
+        // Écrire les atomes
+        writer.write("    <atomArray>\n");
+        for (int i = 0; i < graph.getNodes().size(); i++) {
+            String atomType = atomTypes[i]; // Récupérer le type d'atome
+            writer.write("      <atom id=\"a" + i + "\" elementType=\"" + atomType + "\"/>\n");
+        }
+        writer.write("    </atomArray>\n");
+
+        // Écrire les liaisons
+        writer.write("    <bondArray>\n");
+        for (int i = 0; i < graph.getNodes().size(); i++) {
+            for (int j : graph.getNeighborsOf(i)) {
+                if (i < j) { // Pour éviter les doublons
+                    writer.write("      <bond atomRefs2=\"a" + i + " a" + j + "\" order=\"1\"/>\n");
+                }
+            }
+        }
+        writer.write("    </bondArray>\n");
+    }
 }
