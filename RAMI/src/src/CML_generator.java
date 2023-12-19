@@ -7,11 +7,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CML_generator {
 
+    private static int fileCount = 0; // Compteur pour les fichiers
+
     public static void generateCMLFiles(GraphVar graphVar, String[] atomTypes) {
-        String fileName = "solution.cml";
+        //Seul moyen que j'ai trouvé pour pouvoir garder les fichiers en mémoire, on les nommes avec date et heure
+        //Pour pas qu'il ne s'override
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
+        String timestamp = now.format(formatter);
+        String fileName = "cml_output/solution" + timestamp + ".cml";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             writer.write("<cml xmlns=\"http://www.xml-cml.org/schema\">\n");
