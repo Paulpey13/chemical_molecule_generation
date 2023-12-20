@@ -27,10 +27,12 @@ import static org.chocosolver.solver.search.strategy.Search.*;
 
 public class Main {
 
+    public static String data;
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        String data = "data/test.json";
+        data = "data/test.json";
+
 //        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
@@ -60,7 +62,7 @@ public class Main {
                RealVar[] ys = mod.getYs();
                RealVar[] zs = mod.getZs();
                String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
-               CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs);
+               CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data);
            }
 
 
