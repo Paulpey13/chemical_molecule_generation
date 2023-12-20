@@ -1,6 +1,7 @@
 package src;
 
 import org.chocosolver.solver.variables.GraphVar;
+import org.chocosolver.solver.variables.RealVar;
 import org.chocosolver.util.objects.graphs.UndirectedGraph;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -14,7 +15,7 @@ public class CML_generator {
 
     private static int fileCount = 0; // Compteur pour les fichiers
 
-    public static void generateCMLFiles(GraphVar graphVar, String[] atomTypes) {
+    public static void generateCMLFiles(GraphVar graphVar, String[] atomTypes,RealVar[] xs, RealVar[] ys, RealVar[] zs) {
         //Seul moyen que j'ai trouvé pour pouvoir garder les fichiers en mémoire, on les nommes avec date et heure
         //Pour pas qu'il ne s'override
         LocalDateTime now = LocalDateTime.now();
@@ -25,7 +26,7 @@ public class CML_generator {
             writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             writer.write("<cml xmlns=\"http://www.xml-cml.org/schema\">\n");
             writer.write("  <molecule id =\"1\">\n");
-            writeAtomsAndBonds(writer, graphVar, atomTypes);
+            writeAtomsAndBonds(writer, graphVar, atomTypes, xs, ys, zs);
             writer.write("  </molecule>\n");
             writer.write("</cml>\n");
         } catch (IOException e) {
@@ -33,14 +34,17 @@ public class CML_generator {
         }
     }
 
-    private static void writeAtomsAndBonds(BufferedWriter writer, GraphVar graphVar, String[] atomTypes) throws IOException {
+    private static void writeAtomsAndBonds(BufferedWriter writer, GraphVar graphVar, String[] atomTypes, RealVar[] xs, RealVar[] ys, RealVar[] zs) throws IOException {
         UndirectedGraph graph = (UndirectedGraph) graphVar.getValue();
 
         // Écrire les atomes
         writer.write("    <atomArray>\n");
         for (int i = 0; i < graph.getNodes().size(); i++) {
-            String atomType = atomTypes[i]; // Récupérer le type d'atome
-            writer.write("      <atom id=\"a" + i + "\" elementType=\"" + atomType + "\"/>\n");
+            String atomType = atomTypes[i];
+            double x = xs[i].getLB(); // ou getUB() selon la précision nécessaire
+            double y = ys[i].getLB();
+            double z = zs[i].getLB();
+            writer.write(String.format("      <atom id=\"a%d\" elementType=\"%s\" x3=\"%f\" y3=\"%f\" z3=\"%f\"/>\n", i, atomType, x, y, z));
         }
         writer.write("    </atomArray>\n");
 

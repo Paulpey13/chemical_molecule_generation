@@ -31,7 +31,7 @@ public class MoleculeUtils {
 
         //Distances :
         try {
-            loadBondDistances("./RAMI/data/distances");
+            loadBondDistances("data/distances");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

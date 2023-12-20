@@ -18,6 +18,9 @@ import src.MoleculeUtils;
 
 public class Modelisation {
     private Model model;
+    public RealVar[] xs;
+    public RealVar[] ys;
+    public RealVar[] zs;
     Modelisation(Atom atom){
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
@@ -29,7 +32,7 @@ public class Modelisation {
         model = new Model("Molecule Generation Problem");
 
         int n = atom.nbAtom(); // Nombre d'atomes de la molécule
-        int nb_types = atom.nbTypes(); // Nombre de type d'atomes différents
+        //int nb_types = atom.nbTypes(); // Nombre de type d'atomes différents
         String[] types = atom.getTypes();
 
         // VARIABLES
@@ -40,9 +43,12 @@ public class Modelisation {
         UndirectedGraphVar g = model.graphVar("g", LB, UB);
 
         // Les coordonées pour chaques sommets en 3 dimensions (x,y,z)
-        RealVar [] xs = new RealVar[n];
-        RealVar [] ys = new RealVar[n];
-        RealVar [] zs = new RealVar[n];
+        //RealVar [] xs = new RealVar[n];
+        //RealVar [] ys = new RealVar[n];
+        //RealVar [] zs = new RealVar[n];
+        xs = new RealVar[n];
+        ys = new RealVar[n];
+        zs = new RealVar[n];
         int maxx = 300 ; int minx = -300;
         int maxy = 300 ; int miny = -300;
         int maxz = 300 ; int minz = -300;
@@ -150,10 +156,19 @@ public class Modelisation {
             }
         }
 
-
-
     }
 
+    public RealVar[] getXs() {
+        return xs;
+    }
+
+    public RealVar[] getYs() {
+        return ys;
+    }
+
+    public RealVar[] getZs() {
+        return zs;
+    }
     public Model getModel() {
         return model;
     }

@@ -30,7 +30,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        String data = "./RAMI/data/test.json";
+        String data = "data/test.json";
 //        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
@@ -54,10 +54,13 @@ public class Main {
                    System.out.println(v);
                }
 
-               // Génération du CML 
-               // GraphVar graphVar = (GraphVar) vars[0];
-               // String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
-               // CML_generator.generateCMLFiles(graphVar, atomTypes);
+               // Génération du CML
+               GraphVar graphVar = (GraphVar) vars[0];
+               RealVar[] xs = mod.getXs(); // Assurez-vous que Modelisation a des getters pour xs, ys, zs
+               RealVar[] ys = mod.getYs();
+               RealVar[] zs = mod.getZs();
+               String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
+               CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs);
            }
 
 
