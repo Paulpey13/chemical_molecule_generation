@@ -30,7 +30,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        String data = "data/test.json";
+        String data = "./RAMI/data/test.json";
 //        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
@@ -45,32 +45,22 @@ public class Main {
 
             // Résolution
             Solver solver = model.getSolver();
-            Variable[] var = model.getVars();
+            Variable[] vars = model.getVars();
 
-            // Définition de la stratégie de recherche
-//            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) var[0]));
-//            model.getSolver().setSearch(Search.inputOrderLBSearch(var[0]);
-            Solution solution = model.getSolver().findSolution();
-//            List<Solution> sols = solver.findAllSolutions();
-            if (solution != null) {
-                // ON affiche le graphe
-                System.out.println("Solutions");
-                solver.printShortStatistics();
-//                solver.showSolutions();
-//                System.out.println(var[0]);
-                for(int i = 1; i<10; i++){
-                    System.out.println(var[i].asRealVar());
-                }
+            // Recherche de toutes les solutions
+           while (model.getSolver().solve()) {
+               System.out.println("#SOLUTION");
+               for(Variable v : vars){
+                   System.out.println(v);
+               }
+
+               // Génération du CML 
+               // GraphVar graphVar = (GraphVar) vars[0];
+               // String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
+               // CML_generator.generateCMLFiles(graphVar, atomTypes);
+           }
 
 
-                Variable[] vars = model.getVars();
-                GraphVar graphVar = (GraphVar) vars[0];
-                String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
-                CML_generator.generateCMLFiles(graphVar, atomTypes);
-
-            } else {
-                System.out.println("Aucune solution trouvée.");
-            }
         } catch (IOException e) {
             e.printStackTrace();
         }

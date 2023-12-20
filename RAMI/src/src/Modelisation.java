@@ -43,10 +43,10 @@ public class Modelisation {
         RealVar [] xs = new RealVar[n];
         RealVar [] ys = new RealVar[n];
         RealVar [] zs = new RealVar[n];
-        int maxx = 1000 ; int minx = -1000;
-        int maxy = 1000 ; int miny = -1000;
-        int maxz = 1000 ; int minz = -1000;
-        double p = 0.01d;
+        int maxx = 300 ; int minx = -300;
+        int maxy = 300 ; int miny = -300;
+        int maxz = 300 ; int minz = -300;
+        double p = 1.0;
         // On fixe le premier atom à l'origine du repère (0;0;0;)
         xs[0] = model.realVar("x" + 0, 0, 0, p);
         ys[0] = model.realVar("y" + 0, 0, 0, p);
