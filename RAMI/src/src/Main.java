@@ -31,7 +31,7 @@ public class Main {
     public static void main(String[] args) {
 
         // Données d'entrée au format JSON
-        data = "data/test.json";
+        data = "./RAMI/data/test.json";
 
 //        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
@@ -41,7 +41,7 @@ public class Main {
             System.out.println(atom);
 
             // Création de la modélisation
-            Modelisation mod = new Modelisation(atom);
+            GraphModelisation mod = new GraphModelisation(atom);
             Model model = mod.getModel();
             System.out.println("Fin de Modélisation");
 
@@ -49,20 +49,34 @@ public class Main {
             Solver solver = model.getSolver();
             Variable[] vars = model.getVars();
 
+
             // Recherche de toutes les solutions
+            // On itère sur la variable de graphe
+
+            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[0]));
            while (model.getSolver().solve()) {
+               Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0]);
+               Model model2 = mod2.getModel();
+
                System.out.println("#SOLUTION");
-               for(Variable v : vars){
-                   System.out.println(v);
+               Solution solution = model2.getSolver().findSolution();
+
+               if(solution != null){
+                   System.out.println("test");
+                   Variable[] vars2 = model2.getVars();
+                   for(Variable v : vars2){
+                       System.out.println(v);
+                   }
+                   // Génération du CML
+                   GraphVar graphVar = (GraphVar) vars[0];
+                   RealVar[] xs = mod2.getXs(); // Assurez-vous que Modelisation a des getters pour xs, ys, zs
+                   RealVar[] ys = mod2.getYs();
+                   RealVar[] zs = mod2.getZs();
+                   String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
+                   CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data);
                }
 
-               // Génération du CML
-               GraphVar graphVar = (GraphVar) vars[0];
-               RealVar[] xs = mod.getXs(); // Assurez-vous que Modelisation a des getters pour xs, ys, zs
-               RealVar[] ys = mod.getYs();
-               RealVar[] zs = mod.getZs();
-               String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
-               CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data);
+
            }
 
 

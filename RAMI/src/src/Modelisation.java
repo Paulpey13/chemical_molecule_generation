@@ -13,6 +13,7 @@ import org.chocosolver.util.objects.graphs.GraphFactory;
 import org.chocosolver.solver.variables.IntVar;
 
 import org.chocosolver.util.objects.setDataStructures.iterable.IntIterableRangeSet;
+import org.jgrapht.Graph;
 import src.Atom;
 import src.MoleculeUtils;
 
@@ -21,7 +22,7 @@ public class Modelisation {
     public RealVar[] xs;
     public RealVar[] ys;
     public RealVar[] zs;
-    Modelisation(Atom atom){
+    Modelisation(Atom atom, GraphVar gAtom){
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
 
@@ -32,20 +33,12 @@ public class Modelisation {
         model = new Model("Molecule Generation Problem");
 
         int n = atom.nbAtom(); // Nombre d'atomes de la molécule
-        //int nb_types = atom.nbTypes(); // Nombre de type d'atomes différents
         String[] types = atom.getTypes();
 
         // VARIABLES
-        // An undirected graph
-        UndirectedGraph LB = GraphFactory.makeStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET);
-        // the last parameter indicates that a complete graph is required
-        UndirectedGraph UB = GraphFactory.makeCompleteStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET, true);
-        UndirectedGraphVar g = model.graphVar("g", LB, UB);
+        UndirectedGraphVar g = model.graphVar("g", (UndirectedGraph) gAtom.getValue(),(UndirectedGraph) gAtom.getValue());
 
         // Les coordonées pour chaques sommets en 3 dimensions (x,y,z)
-        //RealVar [] xs = new RealVar[n];
-        //RealVar [] ys = new RealVar[n];
-        //RealVar [] zs = new RealVar[n];
         xs = new RealVar[n];
         ys = new RealVar[n];
         zs = new RealVar[n];
@@ -157,6 +150,7 @@ public class Modelisation {
         }
 
     }
+
 
     public RealVar[] getXs() {
         return xs;
