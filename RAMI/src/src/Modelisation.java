@@ -22,6 +22,8 @@ public class Modelisation {
     public RealVar[] xs;
     public RealVar[] ys;
     public RealVar[] zs;
+
+    public RealVar minDistSquared;
     Modelisation(Atom atom, GraphVar gAtom){
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
@@ -148,6 +150,32 @@ public class Modelisation {
                 model.addClause(model.lit(isConnected[i][j].satVar()), model.lit(sb3));
             }
         }
+
+        // On définit la fonction objective
+        // On définit la variable de distance
+        double distMax = Math.sqrt(Math.pow(maxx - minx, 2) + Math.pow(maxy - miny, 2) + Math.pow(maxz - minz, 2));
+        minDistSquared = model.realVar("minDistSquared", 0.0, distMax, p);
+        int t = 0;
+        int nb_dist = n*(n-1)/2;
+        RealVar[] distSquared = new RealVar[nb_dist];
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                distSquared[t] = model.realVar("distSquared_"+i+"_"+j, 0.0, distMax, p);
+
+                // distSquared = distance_euclidienne(i,j)
+                xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                        .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
+                        .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
+                        .eq(distSquared[t].sqr()).equation().post();
+
+                // Assurer que cette distance est au moins la distance minimale
+                distSquared[t].ge(minDistSquared).post();
+                t += 1;
+            }
+        }
+
+        model.setObjective(Model.MAXIMIZE, minDistSquared);
+
 
     }
 

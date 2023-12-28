@@ -58,11 +58,7 @@ public class Main {
                Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0]);
                Model model2 = mod2.getModel();
 
-               System.out.println("#SOLUTION");
-               Solution solution = model2.getSolver().findSolution();
-
-               if(solution != null){
-                   System.out.println("test");
+               if(model2.getSolver().solve()){
                    Variable[] vars2 = model2.getVars();
                    for(Variable v : vars2){
                        System.out.println(v);
@@ -75,7 +71,9 @@ public class Main {
                    String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
                    CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data);
                }
-
+               else{
+                   System.out.println("Pas de solution de coordonnées pour cette structure de graphe");
+               }
 
            }
 
