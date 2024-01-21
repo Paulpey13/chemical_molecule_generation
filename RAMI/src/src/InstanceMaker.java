@@ -3,6 +3,8 @@ package src;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class InstanceMaker {
     public static void main(String[] args) {
@@ -40,7 +42,12 @@ public class InstanceMaker {
                 "}";
 
         // Écrit la chaîne JSON formatée dans un fichier
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("instance.json"))) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
+        String dateTimeString = LocalDateTime.now().format(formatter);
+
+        String input_folder_path="input/instance_"+dateTimeString+".json";
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(input_folder_path))) {
             writer.write(jsonString);
         } catch (IOException e) {
             // Affiche l'erreur en cas de problème lors de l'écriture dans le fichier
