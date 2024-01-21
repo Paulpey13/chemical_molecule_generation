@@ -32,7 +32,19 @@ public class GraphModelisation {
         UndirectedGraph LB = GraphFactory.makeStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET);
         // the last parameter indicates that a complete graph is required
         UndirectedGraph UB = GraphFactory.makeCompleteStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET, true);
+
+        // On ajoute les liaisons pré-établit
+        int[][] structure = atom.getStructure();
+        int[] liaison;
+        for(int i=0; i<structure.length; i++){
+            liaison = structure[i];
+            if(liaison[1] == Atom.SIMPLE_LIAISON){
+                LB.addEdge(liaison[0], liaison[2]);
+            }
+        }
+
         UndirectedGraphVar g = model.graphVar("g", LB, UB);
+
 
         // CONTRAINTES
 
@@ -48,6 +60,7 @@ public class GraphModelisation {
                 indice_type += 1;
             }
             String id = "id"+i;
+
             degrees[i] = model.intVar(id,valenceMap.get(types[indice_type]));
             c += 1;
         }

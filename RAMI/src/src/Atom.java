@@ -1,10 +1,17 @@
 package src;
 
+import org.chocosolver.util.objects.graphs.UndirectedGraph;
+
 import java.util.Arrays;
 
 public class Atom {
     private String[] types;
     private int[] quantities;
+
+    private int[][] structure;
+    public static int SIMPLE_LIAISON = 0;
+//    public static int DOUBLE_LIAISON = 1;
+
 
     public int nbAtom(){
         int sum = 0;
@@ -16,6 +23,10 @@ public class Atom {
 
     public int nbTypes(){
         return quantities.length;
+    }
+
+    public int[][] getStructure(){
+        return structure;
     }
 
     public String[] getTypes(){

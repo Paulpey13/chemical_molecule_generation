@@ -1,4 +1,5 @@
 {
-  "types": ["O", "H"],
-  "quantities": [1, 2]
+  "types": ["H", "C"],
+  "quantities": [4, 1],
+  "structure": []
 }

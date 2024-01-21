@@ -52,7 +52,7 @@ public class Modelisation {
         int maxx = 100 ; int minx = -100;
         int maxy = 100 ; int miny = -100;
         int maxz = 100 ; int minz = -100;
-        double p = 1.0;
+        double p = 100;
         // On fixe le premier atome à l'origine du repère (0;0;0;)
         xs[0] = model.realVar("x0", 0, 0, p);
         ys[0] = model.realVar("y0", 0, 0, p);
@@ -116,22 +116,25 @@ public class Modelisation {
         // Contraintes de distances
         int dist_max; int dist_min; int index;
         String second_type="X";
+        System.out.println(quantities[1]+""+n);
         for(int i=0; i<n; i++){
             for(int j=i+1;j<n; j++){
                 // On récupère l'intervalle de distance concernant cette liaisons
-                if(i <quantities[0]){
+                if(i < quantities[0]){
                     current_type = types[0];
                 }
                 if(j <quantities[0]){
                     second_type = types[0];
                 }
+                int sum_indice = quantities[0];
                 for(int t =1; t<types.length; t++){
-                    if(quantities[t-1] <= i && i <quantities[t]){
+                    if(sum_indice <= i && i < sum_indice+quantities[t]){
                         current_type = types[t];
                     }
-                    if(quantities[t-1] <= j && j <quantities[t]){
+                    if(sum_indice <= j && j <sum_indice + quantities[t]){
                         second_type = types[t];
                     }
+                    sum_indice += quantities[t];
                 }
 
 
