@@ -33,8 +33,8 @@ public class InstanceMaker {
         //construire la string JSON
         String jsonString = "{\n" +
                 "\t\"types\": [" + typesBuilder.toString() + "],\n" +
-                "\t\"quantities\": [" + quantitiesBuilder.toString() + "]\n" +
-                "}";
+                "\t\"quantities\": [" + quantitiesBuilder.toString() + "],\n" +
+                "\t\"structure\": []\n}";
 
         //écrit string JSON dans le fichier
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(outputPath))) {
