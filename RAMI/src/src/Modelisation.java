@@ -2,6 +2,7 @@ package src;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solution;
+import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.constraints.graph.connectivity.PropConnected;
 import org.chocosolver.solver.variables.*;
 import org.chocosolver.util.objects.graphs.UndirectedGraph;
@@ -24,7 +25,11 @@ public class Modelisation {
     public RealVar[] zs;
 
     public RealVar minDistSquared;
-    Modelisation(Atom atom, GraphVar gAtom){
+
+    public int numFctObj; // -1 si pas de fonction objective
+
+    Modelisation(Atom atom, GraphVar gAtom, int num){
+        this.numFctObj = num;
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
 
@@ -44,19 +49,38 @@ public class Modelisation {
         xs = new RealVar[n];
         ys = new RealVar[n];
         zs = new RealVar[n];
-        int maxx = 300 ; int minx = -300;
-        int maxy = 300 ; int miny = -300;
-        int maxz = 300 ; int minz = -300;
+        int maxx = 100 ; int minx = -100;
+        int maxy = 100 ; int miny = -100;
+        int maxz = 100 ; int minz = -100;
         double p = 1.0;
-        // On fixe le premier atom à l'origine du repère (0;0;0;)
-        xs[0] = model.realVar("x" + 0, 0, 0, p);
-        ys[0] = model.realVar("y" + 0, 0, 0, p);
-        zs[0] = model.realVar("z" + 0, 0,0, p);
-        for(int i = 1; i < n ; i++) {
+        // On fixe le premier atome à l'origine du repère (0;0;0;)
+        xs[0] = model.realVar("x0", 0, 0, p);
+        ys[0] = model.realVar("y0", 0, 0, p);
+        zs[0] = model.realVar("z0", 0,0, p);
+        // On fixe le deuxième atome sur l'axe des z positifs (0;0;z>=0)
+        if(n >= 2) {
+            xs[1] = model.realVar("x1", 0, 0, p);
+            ys[1] = model.realVar("y1", 0, 0, p);
+            zs[1] = model.realVar("z1", 0, maxz, p);
+        }
+        // On fixe le troisième atome dans le plan yz y positif (0;y>=0;z)
+        if(n >= 3) {
+            xs[2] = model.realVar("x2", 0, 0, p);
+            ys[2] = model.realVar("y2", 0, maxy, p);
+            zs[2] = model.realVar("z2", minz, maxz, p);
+        }
+        // On fixe le quatrième atome dans le demi-espace x positif (x >= 0;y;z)
+        if(n >= 4) {
+            xs[3] = model.realVar("x3", 0, maxx, p);
+            ys[3] = model.realVar("y3", miny, maxy, p);
+            zs[3] = model.realVar("z4", minz, maxz, p);
+        }
+        for(int i = 4; i < n ; i++) {
             xs[i] = model.realVar("x" + i, minx, maxx, p);
             ys[i] = model.realVar("y" + i, miny, maxy, p);
             zs[i] = model.realVar("z" + i, minz,maxz, p);
         }
+
 
         // CONTRAINTES
 
@@ -160,21 +184,76 @@ public class Modelisation {
         RealVar[] distSquared = new RealVar[nb_dist];
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                distSquared[t] = model.realVar("distSquared_"+i+"_"+j, 0.0, distMax, p);
+                if(this.numFctObj == 1) {
+                    distSquared[t] = model.realVar("distSquared_" + i + "_" + j, 0.0, distMax, p);
 
-                // distSquared = distance_euclidienne(i,j)
-                xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                    // distSquared = distance_euclidienne(i,j)
+                    xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                            .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
+                            .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
+                            .eq(distSquared[t].sqr()).equation().post();
+
+                    // Assurer que cette distance est au moins la distance minimale
+                    distSquared[t].ge(minDistSquared).post();
+                    t += 1;
+                }
+                
+                if(this.numFctObj == 2){
+                    distSquared[t] = model.realVar("distSquared_"+i+"_"+j, 0.0, distMax, p);
+                    // distSquared = distance_euclidienne(i,j)
+                    xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
                         .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
                         .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
                         .eq(distSquared[t].sqr()).equation().post();
 
-                // Assurer que cette distance est au moins la distance minimale
-                distSquared[t].ge(minDistSquared).post();
-                t += 1;
+                    BoolVar b3 = model.boolVar("BObjective"+i+"-"+j);
+                    b3 = distSquared[t].ge(minDistSquared).reify();
+
+                    int sb3 = b3.satVar();
+                    // (i,j) pas  dans G ==> distance(i,j) >= minDistSquared
+                    model.addClause(model.lit(isConnected[i][j].satVar()), model.lit(sb3));
+
+                    t += 1;
+                }
+
+                // FCT OBJ = somme des distances
+                if(this.numFctObj == 3){
+                    distSquared[t] = model.realVar("distSquared_"+i+"_"+j, 0.0, distMax, p);
+                    // distSquared = distance_euclidienne(i,j)
+                    xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
+                            .add(ys[i].sub(ys[j]).mul(ys[i].sub(ys[j])))
+                            .add(zs[i].sub(zs[j]).mul(zs[i].sub(zs[j])))
+                            .eq(distSquared[t].sqr()).equation().post();
+
+                    t +=1;
+                }
+
+
+
+
             }
         }
 
-        model.setObjective(Model.MAXIMIZE, minDistSquared);
+        if(this.numFctObj == 1){
+            model.setObjective(Model.MAXIMIZE, minDistSquared);
+        } else if (this.numFctObj == 2) {
+            model.setObjective(Model.MAXIMIZE, minDistSquared);
+        } else if (this.numFctObj == 3) {
+            RealVar sumDist = model.realVar("sumDist", 0.0, nb_dist*distMax, p);
+            String sum = "";
+            Variable[] vars = new Variable[distSquared.length+1];
+            for(t = 0; t<distSquared.length-1; t++){
+                sum = sum + "{"+t+"}+";
+                vars[t] = distSquared[t];
+            }
+            int t2 = t+1;
+            vars[t] = distSquared[t];
+            vars[t2] = sumDist;
+            sum = sum + "{"+t+"} = {"+t2+"}";
+            model.realIbexGenericConstraint(sum, vars).post();
+
+            model.setObjective(Model.MAXIMIZE, sumDist);
+        }
 
 
     }

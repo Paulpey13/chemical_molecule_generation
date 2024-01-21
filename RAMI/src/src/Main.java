@@ -55,7 +55,7 @@ public class Main {
 
             model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[0]));
            while (model.getSolver().solve()) {
-               Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0]);
+               Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0], -1);
                Model model2 = mod2.getModel();
 
                if(model2.getSolver().solve()){
