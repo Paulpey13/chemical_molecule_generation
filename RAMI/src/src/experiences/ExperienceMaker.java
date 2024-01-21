@@ -9,7 +9,8 @@ import java.time.format.DateTimeFormatter;
 
 public class ExperienceMaker {
     public static void main(String[] args) {
-        String[] configurations = {"H:2,O:1", "H:3,C:1","H:4,C:1,O:1","C:1,H:4","H:4,C:1","C:1,H:4,O:1","O:1,H:2","H:2,O:1"};
+        String[] configurations = {"H:6,C:2,O:1"};
+        //LE H TOUJOURS AVANT LE C SINON CA MARCHE PAS
         InstanceMaker instanceMaker = new InstanceMaker();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
         StringBuilder experimentResults = new StringBuilder();
@@ -42,7 +43,7 @@ public class ExperienceMaker {
                     .append(", Execution Time: ").append(duration).append(" ms\n");
 
             try {
-                Thread.sleep(1000); //pour etre sur que y'a pas d'overwrite avec l'heure
+                Thread.sleep(500); //pour etre sur que y'a pas d'overwrite avec l'heure
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
