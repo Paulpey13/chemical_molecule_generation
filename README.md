@@ -8,8 +8,6 @@
 4. [Code](#code).
 5. [Features](#features)
 6. [Dependencies](#dependencies)
-7. [Configuration](#configuration)
-8. [Documentation](#documentation)
 9. [Examples](#examples)
 11. [Contributors](#contributors)
 12. [License](#license)
@@ -131,17 +129,11 @@ The project requires the following dependencies:
 
 Ensure these are properly installed and configured before running the project.
 
-## Configuration
-
-The project can be configured through the `config.json` file, where parameters like the type and quantity of atoms, as well as structural constraints, can be specified.
-
-## Documentation
-
-The project documentation is available in the `docs` folder. It provides detailed information about the project's structure, classes, and methods, as well as usage examples and troubleshooting tips.
-
 ## Examples
 
 Refer to the `examples` folder for sample input files and their corresponding output structures. This can provide a good starting point for understanding how to structure your input files.
+
+mettre des photos de molécule etc ça peut être bien
 
 ## Contributors
 
