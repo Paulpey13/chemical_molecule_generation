@@ -161,4 +161,5 @@ If you encounter issues, please check the `logs` folder for error messages and s
 
 ## License
 
-This project is licensed under the [LICENSE NAME]. Please see the `LICENSE` file for more details.
+This project is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License
+
