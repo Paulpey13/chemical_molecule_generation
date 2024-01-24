@@ -11,13 +11,12 @@
 7. [Configuration](#configuration)
 8. [Documentation](#documentation)
 9. [Examples](#examples)
-10. [Troubleshooting](#troubleshooting)
 11. [Contributors](#contributors)
 12. [License](#license)
 
 ## Introduction
 
-This project, orchestrated by Nicolas Prcovic and realized by Manon Girard, Romain Durand, and Paul Peyssard, delves into the realm of automatic molecular structure generation. Originating from Adrien Varet's innovative work on benzene structures, this software transcends its origins to provide a comprehensive solution for generating molecular structures from any given list of atoms. At its core, it harnesses the power of constraint programming, forgoing the need for a graphical interface, to generate structures and collaborates with JMol for their visualization.
+This project aims to generate molecular structures based on a given list of atoms, using constraint programming. It adheres to essential chemical constraints, such as atomic valencies and distances between atoms, to create viable molecules. The project is developed in Java and utilizes the Choco solver.
 
 ## Installation
 
@@ -25,15 +24,11 @@ Follow these steps to set up the project:
 
 1. **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-repository/rami-project.git
+    git clone https://github.com/Paulpey13/chemical_molecule_generation.git
     ```
 
 2. **Install Dependencies**:
-    Navigate to the project directory and install the necessary dependencies.
-    ```bash
-    cd rami-project
-    pip install -r requirements.txt
-    ```
+    à remplir à la fin (install requirements.txt)
 
 ## Usage
 
@@ -147,10 +142,6 @@ The project documentation is available in the `docs` folder. It provides detaile
 ## Examples
 
 Refer to the `examples` folder for sample input files and their corresponding output structures. This can provide a good starting point for understanding how to structure your input files.
-
-## Troubleshooting
-
-If you encounter issues, please check the `logs` folder for error messages and stack traces. Common issues and their resolutions are documented in the `TROUBLESHOOTING.md` file.
 
 ## Contributors
 
