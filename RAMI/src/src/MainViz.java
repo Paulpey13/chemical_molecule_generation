@@ -25,8 +25,13 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.List;
+
+import org.jgrapht.Graph;
+import org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;
+import org.jgrapht.graph.DefaultEdge;
 import src.Atom;
 import src.Modelisation;
 
@@ -41,9 +46,9 @@ public class MainViz {
     public static void main(String[] args) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
         // Données d'entrée au format JSON
-        //data = "./RAMI/data/test.json";
+        data = "./RAMI/data/test.json";
 
-        String data = "data/test.json"; //pour paul sinon ça marche pas
+//        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(data)) {
@@ -63,24 +68,55 @@ public class MainViz {
 
             // Recherche de toutes les solutions
             // On itère sur la variable de graphe
-
+            List<Graph> listStruct = new ArrayList<>();
             model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[0]));
             while (model.getSolver().solve()) {
-                String graphe_visualized=((GraphVar<?>) vars[0]).getValue().graphVizExport();
+                listStruct.add(GraphModelisation.translate((GraphVar) vars[0], atom.listTypes()));
 
-                String renamed_graph=AtomIndexer.convertGraphVizOutput(graphe_visualized, list_correspondance);
-                String graphe_visualizedPath = "graph_output/graph_" + LocalDateTime.now().format(formatter) + ".png";
+            }
 
+            if(listStruct.size() == 0){
+                System.out.println("Aucunes solutions trouvées");
+            }else{
+                for(int i=0; i<listStruct.size(); i++){
+                    for(int j=i+1; j<listStruct.size(); j++){
+                        Graph<GraphModelisation.Node, DefaultEdge> graph1 = listStruct.get(i);
+                        Graph<GraphModelisation.Node, DefaultEdge> graph2 = listStruct.get(j);
+
+                        VF2GraphIsomorphismInspector<GraphModelisation.Node, DefaultEdge> inspector =
+                                new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisation.Node>() {
+                                    @Override
+                                    public int compare(GraphModelisation.Node v1, GraphModelisation.Node v2) {
+                                        return v1.getType().equals(v2.getType()) ? 0 : -1;
+                                    }
+                                }, null);
+
+                        if (inspector.isomorphismExists()) {
+                            // Les graphes sont isomorphes; retirez un des graphes
+                            listStruct.remove(j);
+                            j--; // Ajustez l'indice après la suppression
+                        }
+                    }
+                }
+            }
+            int i = 0;
+            for(Graph g : listStruct){
+                System.out.println("Maintenant, "+listStruct.size()+" solutions");
+                System.out.println(g);
+                System.out.println(GraphModelisation.getGraphViz(g));
+
+                String graphe_visualized = GraphModelisation.getGraphViz(g);
+
+                String graphe_visualizedPath = "./RAMI/graph_output/graph_"+i+"_"+ LocalDateTime.now().format(formatter) + ".png";
+                i += 1;
                 try {
-                    Graphviz.fromString(renamed_graph)
+                    Graphviz.fromString(graphe_visualized)
                             .render(Format.PNG)
                             .toFile(new File(graphe_visualizedPath));
 
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
 
