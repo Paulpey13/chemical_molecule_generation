@@ -32,7 +32,7 @@ public class AtomIndexer {
                     int count = atomCount.getOrDefault(atomType, 0);
 
                     // Générer la clé de l'atome avec un indice si nécessaire
-                    String atomKey = atomType + (count > 0 ? count : "");
+                    String atomKey = atomType + (count > 0 ? "_" + count : "");
                     atomIndices.put(currentIndex, atomKey);
 
                     // Mettre à jour currentIndex et atomCount
