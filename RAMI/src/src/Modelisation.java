@@ -49,10 +49,10 @@ public class Modelisation {
         xs = new RealVar[n];
         ys = new RealVar[n];
         zs = new RealVar[n];
-        int maxx = 100 ; int minx = -100;
-        int maxy = 100 ; int miny = -100;
-        int maxz = 100 ; int minz = -100;
-        double p = 100;
+        int maxx = 300 ; int minx = -300;
+        int maxy = 300 ; int miny = -300;
+        int maxz = 300 ; int minz = -300;
+        double p = 250;
         // On fixe le premier atome à l'origine du repère (0;0;0;)
         xs[0] = model.realVar("x0", 0, 0, p);
         ys[0] = model.realVar("y0", 0, 0, p);
@@ -142,7 +142,7 @@ public class Modelisation {
                 dist_max = distanceMap.get(current_type+"-"+second_type).getMaxDistance();
                 dist_max = dist_max*dist_max;
                 dist_min = dist_min*dist_min;
-                System.out.println(current_type+" "+second_type+" dist ["+dist_min+","+dist_max+"]");
+//                System.out.println(current_type+" "+second_type+" dist ["+dist_min+","+dist_max+"]");
 
                 BoolVar b = model.boolVar("Bdmax"+i+"-"+j);
                 b = xs[i].sub(xs[j]).mul(xs[i].sub(xs[j]))
