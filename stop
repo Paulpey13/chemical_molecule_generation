@@ -1,0 +1,899 @@
+[1mdiff --git a/.idea/libraries/nl_svenkonings_jacomo_chocosolver.xml b/.idea/libraries/nl_svenkonings_jacomo_chocosolver.xml[m
+[1mindex 606ff86..60dbf42 100644[m
+[1m--- a/.idea/libraries/nl_svenkonings_jacomo_chocosolver.xml[m
+[1m+++ b/.idea/libraries/nl_svenkonings_jacomo_chocosolver.xml[m
+[36m@@ -1,9 +1,24 @@[m
+ <component name="libraryTable">[m
+[31m-  <library name="nl.svenkonings.jacomo" type="repository">[m
+[31m-    <properties maven-id="nl.svenkonings.jacomo:jacomo:0.1-RC4" />[m
+[32m+[m[32m  <library name="nl.svenkonings.jacomo.chocosolver" type="repository">[m
+[32m+[m[32m    <properties maven-id="nl.svenkonings.jacomo:jacomo-chocosolver:0.1-RC4" />[m
+     <CLASSES>[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/nl/svenkonings/jacomo/jacomo-chocosolver/0.1-RC4/jacomo-chocosolver-0.1-RC4.jar!/" />[m
+       <root url="jar://$MAVEN_REPOSITORY$/nl/svenkonings/jacomo/jacomo/0.1-RC4/jacomo-0.1-RC4.jar!/" />[m
+       <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/choco-solver/choco-solver/4.10.7/choco-solver-4.10.7.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/dk/brics/automaton/automaton/1.11-8/automaton-1.11-8.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/jgrapht/jgrapht-core/1.4.0/jgrapht-core-1.4.0.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/jheaps/jheaps/0.11/jheaps-0.11.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/com/github/cp-profiler/cpprof-java/1.3.0/cpprof-java-1.3.0.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/2.6.1/protobuf-java-2.6.1.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchart/xchart/3.8.1/xchart-3.8.1.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/de/erichseifert/vectorgraphics2d/VectorGraphics2D/0.13/VectorGraphics2D-0.13.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/de/rototor/pdfbox/graphics2d/0.32/graphics2d-0.32.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/pdfbox/2.0.24/pdfbox-2.0.24.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/fontbox/2.0.24/fontbox-2.0.24.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/com/madgag/animated-gif-lib/1.4/animated-gif-lib-1.4.jar!/" />[m
+[32m+[m[32m      <root url="jar://$MAVEN_REPOSITORY$/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar!/" />[m
+     </CLASSES>[m
+     <JAVADOC />[m
+     <SOURCES />[m
+[1mdiff --git a/RAMI/.idea/nl_svenkonings_jacomo_chocosolver.xml b/RAMI/.idea/nl_svenkonings_jacomo_chocosolver.xml[m
+[1mindex e69de29..54a7162 100644[m
+[1m--- a/RAMI/.idea/nl_svenkonings_jacomo_chocosolver.xml[m
+[1m+++ b/RAMI/.idea/nl_svenkonings_jacomo_chocosolver.xml[m
+[36m@@ -0,0 +1,26 @@[m
+[32m+[m[32m<component name="libraryTable">[m
+[32m+[m[32m    <library name="nl.svenkonings.jacomo.chocosolver" type="repository">[m
+[32m+[m[32m        <properties maven-id="nl.svenkonings.jacomo:jacomo-chocosolver:0.1-RC4" />[m
+[32m+[m[32m        <CLASSES>[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/nl/svenkonings/jacomo/jacomo-chocosolver/0.1-RC4/jacomo-chocosolver-0.1-RC4.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/nl/svenkonings/jacomo/jacomo/0.1-RC4/jacomo-0.1-RC4.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/23.0.0/annotations-23.0.0.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/choco-solver/choco-solver/4.10.7/choco-solver-4.10.7.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/dk/brics/automaton/automaton/1.11-8/automaton-1.11-8.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/jgrapht/jgrapht-core/1.4.0/jgrapht-core-1.4.0.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/jheaps/jheaps/0.11/jheaps-0.11.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/com/github/cp-profiler/cpprof-java/1.3.0/cpprof-java-1.3.0.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/com/google/protobuf/protobuf-java/2.6.1/protobuf-java-2.6.1.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchart/xchart/3.8.1/xchart-3.8.1.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/de/erichseifert/vectorgraphics2d/VectorGraphics2D/0.13/VectorGraphics2D-0.13.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/de/rototor/pdfbox/graphics2d/0.32/graphics2d-0.32.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/pdfbox/2.0.24/pdfbox-2.0.24.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/org/apache/pdfbox/fontbox/2.0.24/fontbox-2.0.24.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.2/commons-logging-1.2.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/com/madgag/animated-gif-lib/1.4/animated-gif-lib-1.4.jar!/" />[m
+[32m+[m[32m            <root url="jar://$MAVEN_REPOSITORY$/net/sf/trove4j/trove4j/3.0.3/trove4j-3.0.3.jar!/" />[m
+[32m+[m[32m        </CLASSES>[m
+[32m+[m[32m        <JAVADOC />[m
+[32m+[m[32m        <SOURCES />[m
+[32m+[m[32m    </library>[m
+[32m+[m[32m</component>[m
+\ No newline at end of file[m
+[1mdiff --git a/RAMI/data/test.json b/RAMI/data/test.json[m
+[1mindex 609d70d..82b4f28 100644[m
+[1m--- a/RAMI/data/test.json[m
+[1m+++ b/RAMI/data/test.json[m
+[36m@@ -1,4 +1,5 @@[m
+ {[m
+[31m-  "types": ["O", "H"],[m
+[31m-  "quantities": [1, 2][m
+[32m+[m[32m  "types": ["C","H"],[m
+[32m+[m[32m  "quantities": [6,6],[m
+[32m+[m[32m  "structure": [][m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/RAMI/graph_output/graph_0_0126151633.png b/RAMI/graph_output/graph_0_0126151633.png[m
+[1mdeleted file mode 100644[m
+[1mindex f0e90fa..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126151633.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126152219.png b/RAMI/graph_output/graph_0_0126152219.png[m
+[1mdeleted file mode 100644[m
+[1mindex f0e90fa..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126152219.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126152610.png b/RAMI/graph_output/graph_0_0126152610.png[m
+[1mdeleted file mode 100644[m
+[1mindex 7993edc..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126152610.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126152806.png b/RAMI/graph_output/graph_0_0126152806.png[m
+[1mdeleted file mode 100644[m
+[1mindex 7993edc..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126152806.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126161122.png b/RAMI/graph_output/graph_0_0126161122.png[m
+[1mdeleted file mode 100644[m
+[1mindex 451f8ca..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126161122.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126162935.png b/RAMI/graph_output/graph_0_0126162935.png[m
+[1mdeleted file mode 100644[m
+[1mindex 451f8ca..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126162935.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126163157.png b/RAMI/graph_output/graph_0_0126163157.png[m
+[1mdeleted file mode 100644[m
+[1mindex 451f8ca..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126163157.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126163204.png b/RAMI/graph_output/graph_0_0126163204.png[m
+[1mdeleted file mode 100644[m
+[1mindex 451f8ca..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126163204.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126171613.png b/RAMI/graph_output/graph_0_0126171613.png[m
+[1mdeleted file mode 100644[m
+[1mindex 451f8ca..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126171613.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126171705.png b/RAMI/graph_output/graph_0_0126171705.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126171705.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126173713.png b/RAMI/graph_output/graph_0_0126173713.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126173713.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126174153.png b/RAMI/graph_output/graph_0_0126174153.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126174153.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126174210.png b/RAMI/graph_output/graph_0_0126174210.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126174210.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126174515.png b/RAMI/graph_output/graph_0_0126174515.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126174515.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126174536.png b/RAMI/graph_output/graph_0_0126174536.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126174536.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126175000.png b/RAMI/graph_output/graph_0_0126175000.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126175000.png and /dev/null differ
+[1mdiff --git a/RAMI/graph_output/graph_0_0126180412.png b/RAMI/graph_output/graph_0_0126180412.png[m
+[1mdeleted file mode 100644[m
+[1mindex 191873c..0000000[m
+Binary files a/RAMI/graph_output/graph_0_0126180412.png and /dev/null differ
+[1mdiff --git a/RAMI/src/src/Atom.java b/RAMI/src/src/Atom.java[m
+[1mindex 7428a76..c48aa6e 100644[m
+[1m--- a/RAMI/src/src/Atom.java[m
+[1m+++ b/RAMI/src/src/Atom.java[m
+[36m@@ -1,11 +1,45 @@[m
+ package src;[m
+ [m
+[32m+[m[32mimport org.chocosolver.util.objects.graphs.UndirectedGraph;[m
+[32m+[m
+ import java.util.Arrays;[m
+ [m
+ public class Atom {[m
+     private String[] types;[m
+     private int[] quantities;[m
+ [m
+[32m+[m[32m    private int[][] structure;[m
+[32m+[m[32m    public static int SIMPLE_LIAISON = 0;[m
+[32m+[m[32m//    public static int DOUBLE_LIAISON = 1;[m
+[32m+[m
+[32m+[m[32m    public String[] listTypes(){[m
+[32m+[m[32m        int n= this.nbAtom();[m
+[32m+[m[32m        String[] typesList = new String[n];[m
+[32m+[m[32m        String type;[m
+[32m+[m[32m        int maxIndex;[m
+[32m+[m[32m        for(int i =0; i<n; i++){[m
+[32m+[m[32m            maxIndex = 0;[m
+[32m+[m[32m            type = "None";[m
+[32m+[m[32m            for(int j = 0; j<this.quantities.length; j++){[m
+[32m+[m[32m                if(i < (maxIndex + this.quantities[j]) && type.compareTo("None") == 0){[m
+[32m+[m[32m                    type = this.types[j];[m
+[32m+[m[32m                }[m
+[32m+[m[32m                maxIndex += this.quantities[j];[m
+[32m+[m[32m            }[m
+[32m+[m[32m            typesList[i] = type;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return typesList;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public String printListTypes(){[m
+[32m+[m[32m        String[] t = listTypes();[m
+[32m+[m[32m        String st = "";[m
+[32m+[m[32m        for(String s : t){[m
+[32m+[m[32m            st = st +" "+ s;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return st;[m
+[32m+[m[32m    }[m
+[32m+[m
+     public int nbAtom(){[m
+         int sum = 0;[m
+         for (int i = 0; i<quantities.length; i++) {[m
+[36m@@ -18,8 +52,12 @@[m [mpublic class Atom {[m
+         return quantities.length;[m
+     }[m
+ [m
+[32m+[m[32m    public int[][] getStructure(){[m
+[32m+[m[32m        return structure;[m
+[32m+[m[32m    }[m
+[32m+[m
+     public String[] getTypes(){[m
+[31m-       return types;[m
+[32m+[m[32m        return types;[m
+     }[m
+ [m
+     public int[] getQuantities() {[m
+[36m@@ -41,4 +79,12 @@[m [mpublic class Atom {[m
+                 ", quantities=" + Arrays.toString(quantities) +[m
+                 '}';[m
+     }[m
+[32m+[m[32m    public int getNbAtoms() {[m
+[32m+[m[32m        int n = 0;[m
+[32m+[m
+[32m+[m[32m        for (int q : quantities) {[m
+[32m+[m[32m            n += q;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        return n;[m
+[32m+[m[32m    }[m
+ }[m
+\ No newline at end of file[m
+[1mdiff --git a/RAMI/src/src/AtomIndexer.java b/RAMI/src/src/AtomIndexer.java[m
+[1mindex b206745..cacead7 100644[m
+[1m--- a/RAMI/src/src/AtomIndexer.java[m
+[1m+++ b/RAMI/src/src/AtomIndexer.java[m
+[36m@@ -1,2 +1,89 @@[m
+[31m-package src;public class AtomIndexer {[m
+[32m+[m[32mpackage src;[m
+[32m+[m
+[32m+[m[32mimport com.google.gson.Gson;[m
+[32m+[m[32mimport java.io.FileReader;[m
+[32m+[m[32mimport java.io.IOException;[m
+[32m+[m[32mimport java.util.HashMap;[m
+[32m+[m[32mimport java.util.List;[m
+[32m+[m[32mimport java.util.Map;[m
+[32m+[m
+[32m+[m[32mpublic class AtomIndexer {[m
+[32m+[m
+[32m+[m[32m    static class AtomData {[m
+[32m+[m[32m        List<String> types;[m
+[32m+[m[32m        List<Integer> quantities;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public static Map<Integer, String> getAtomIndices(String filePath) {[m
+[32m+[m[32m        Map<Integer, String> atomIndices = new HashMap<>();[m
+[32m+[m[32m        Map<String, Integer> atomCount = new HashMap<>();  // Nouvelle map pour suivre le nombre d'occurrences de chaque type d'atome[m
+[32m+[m[32m        Gson gson = new Gson();[m
+[32m+[m
+[32m+[m[32m        try (FileReader reader = new FileReader(filePath)) {[m
+[32m+[m[32m            AtomData atomData = gson.fromJson(reader, AtomData.class);[m
+[32m+[m
+[32m+[m[32m            int currentIndex = 0;[m
+[32m+[m[32m            for (int i = 0; i < atomData.types.size(); i++) {[m
+[32m+[m[32m                String atomType = atomData.types.get(i);[m
+[32m+[m[32m                int quantity = atomData.quantities.get(i);[m
+[32m+[m
+[32m+[m[32m                for (int j = 0; j < quantity; j++) {[m
+[32m+[m[32m                    // Obtenir le nombre actuel d'occurrences de ce type d'atome[m
+[32m+[m[32m                    int count = atomCount.getOrDefault(atomType, 0);[m
+[32m+[m
+[32m+[m[32m                    // Générer la clé de l'atome avec un indice si nécessaire[m
+[32m+[m[32m                    String atomKey = atomType + (count > 0 ? "_" + count : "");[m
+[32m+[m[32m                    atomIndices.put(currentIndex, atomKey);[m
+[32m+[m
+[32m+[m[32m                    // Mettre à jour currentIndex et atomCount[m
+[32m+[m[32m                    currentIndex++;[m
+[32m+[m[32m                    atomCount.put(atomType, count + 1);[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m        } catch (IOException e) {[m
+[32m+[m[32m            e.printStackTrace();[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return atomIndices;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public static String convertGraphVizOutput(String graphVizOutput, Map<Integer, String> atomIndices) {[m
+[32m+[m[32m        // Diviser la sortie en lignes[m
+[32m+[m[32m        String[] lines = graphVizOutput.split("\n");[m
+[32m+[m
+[32m+[m[32m        StringBuilder convertedOutput = new StringBuilder();[m
+[32m+[m[32m        for (String line : lines) {[m
+[32m+[m[32m            if (!line.trim().isEmpty()) {[m
+[32m+[m[32m                // Diviser la ligne par des espaces pour obtenir les indices/nœuds et les arêtes[m
+[32m+[m[32m                String[] elements = line.trim().split("\\s+");[m
+[32m+[m
+[32m+[m[32m                for (String element : elements) {[m
+[32m+[m[32m                    if (element.contains("--")) {[m
+[32m+[m[32m                        // C'est une arête, la garder telle quelle[m
+[32m+[m[32m                        convertedOutput.append(element);[m
+[32m+[m[32m                    } else if (element.matches("\\d+")) {[m
+[32m+[m[32m                        // C'est un indice/nœud, le convertir en atome[m
+[32m+[m[32m                        int index = Integer.parseInt(element);[m
+[32m+[m[32m                        String atom = atomIndices.getOrDefault(index, "Unknown");  // Utiliser "Unknown" si l'atome n'est pas trouvé[m
+[32m+[m[32m                        convertedOutput.append(atom);[m
+[32m+[m[32m                    } else {[m
+[32m+[m[32m                        // Gérer les cas inattendus (si besoin)[m
+[32m+[m[32m                        convertedOutput.append(element);[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    convertedOutput.append(" ");[m
+[32m+[m[32m                }[m
+[32m+[m[32m                convertedOutput.append("\n"); // Fin de la ligne[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return convertedOutput.toString();[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    // Vous pouvez tester la fonction ici[m
+[32m+[m[32m    public static void main(String[] args) {[m
+[32m+[m[32m        String filePath = "path_to_your_file.json";  // Remplacez par le chemin réel de votre fichier[m
+[32m+[m[32m        Map<Integer, String> atomIndices = getAtomIndices(filePath);[m
+[32m+[m[32m        System.out.println(atomIndices);[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/RAMI/src/src/GraphModelisation.java b/RAMI/src/src/GraphModelisation.java[m
+[1mindex 41ba1b6..08190f3 100644[m
+[1m--- a/RAMI/src/src/GraphModelisation.java[m
+[1m+++ b/RAMI/src/src/GraphModelisation.java[m
+[36m@@ -1,17 +1,37 @@[m
+ package src;[m
+ [m
+ import org.chocosolver.solver.Model;[m
+[31m-import org.chocosolver.solver.variables.BoolVar;[m
+[31m-import org.chocosolver.solver.variables.IntVar;[m
+[31m-import org.chocosolver.solver.variables.RealVar;[m
+[31m-import org.chocosolver.solver.variables.UndirectedGraphVar;[m
+[32m+[m[32mimport org.chocosolver.solver.variables.*;[m
+ import org.chocosolver.util.objects.graphs.GraphFactory;[m
+ import org.chocosolver.util.objects.graphs.UndirectedGraph;[m
+ import org.chocosolver.util.objects.setDataStructures.SetType;[m
+[32m+[m[32mimport org.jgrapht.Graph;[m
+[32m+[m[32mimport org.jgrapht.graph.DefaultEdge;[m
+[32m+[m[32mimport org.jgrapht.graph.SimpleGraph;[m
+ [m
+[32m+[m[32mimport java.util.ArrayList;[m
+ import java.util.Map;[m
+ [m
+ public class GraphModelisation {[m
+[32m+[m[32m    static class Node {[m
+[32m+[m[32m        private int num;[m
+[32m+[m[32m        private String type;[m
+[32m+[m
+[32m+[m[32m        public Node(int num, String type) {[m
+[32m+[m[32m            this.num = num;[m
+[32m+[m[32m            this.type = type;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        public int getNum(){[m
+[32m+[m[32m            return this.num;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        public String getType(){[m
+[32m+[m[32m            return this.type;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        @Override[m
+[32m+[m[32m        public String toString(){[m
+[32m+[m[32m            return "("+this.num+" ; "+this.type+")";[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+     Model model;[m
+     GraphModelisation(Atom atom){[m
+         // List des valences de chaque atome[m
+[36m@@ -32,8 +52,20 @@[m [mpublic class GraphModelisation {[m
+         UndirectedGraph LB = GraphFactory.makeStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET);[m
+         // the last parameter indicates that a complete graph is required[m
+         UndirectedGraph UB = GraphFactory.makeCompleteStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET, true);[m
+[32m+[m
+[32m+[m[32m        // On ajoute les liaisons pré-établit[m
+[32m+[m[32m        int[][] structure = atom.getStructure();[m
+[32m+[m[32m        int[] liaison;[m
+[32m+[m[32m        for (int[] ints : structure) {[m
+[32m+[m[32m            liaison = ints;[m
+[32m+[m[32m            if (liaison[1] == Atom.SIMPLE_LIAISON) {[m
+[32m+[m[32m                LB.addEdge(liaison[0], liaison[2]);[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+         UndirectedGraphVar g = model.graphVar("g", LB, UB);[m
+ [m
+[32m+[m
+         // CONTRAINTES[m
+ [m
+         // On définit le degré de chaque sommet[m
+[36m@@ -48,6 +80,7 @@[m [mpublic class GraphModelisation {[m
+                 indice_type += 1;[m
+             }[m
+             String id = "id"+i;[m
+[32m+[m
+             degrees[i] = model.intVar(id,valenceMap.get(types[indice_type]));[m
+             c += 1;[m
+         }[m
+[36m@@ -59,7 +92,63 @@[m [mpublic class GraphModelisation {[m
+ [m
+     }[m
+ [m
+[32m+[m[32m    public static Graph translate(GraphVar g, String[] types,IntVar liaisons){[m
+[32m+[m[32m        Graph<Node, DefaultEdge> transG = new SimpleGraph<>(DefaultEdge.class);[m
+[32m+[m
+[32m+[m[32m        int nbNodes = types.length;[m
+[32m+[m[32m        Node[] nodes = new Node[nbNodes];[m
+[32m+[m[32m        for(int i=0; i<nbNodes; i++){[m
+[32m+[m[32m            Node node = new Node(i, types[i]);[m
+[32m+[m[32m            nodes[i] = node;[m
+[32m+[m[32m            transG.addVertex(node);[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        for(int i=0; i<nbNodes; i++){[m
+[32m+[m[32m            for(int j=i+1; j< nbNodes; j++){[m
+[32m+[m[32m                if(g.getValue().containsEdge(i,j)){[m
+[32m+[m[32m                    transG.addEdge(nodes[i], nodes[j]);[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m[32m//[m
+[32m+[m[32m        return transG;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    public static String getGraphViz(Graph g){[m
+[32m+[m[32m        String gv = "graph G{ \n";[m
+[32m+[m
+[32m+[m[32m        for(Object o : g.vertexSet()){[m
+[32m+[m[32m            Node n = (Node) o;[m
+[32m+[m[32m            gv += ""+n.getNum()+" [label=\""+n.getType()+"_"+n.getNum()+"\"]; \n";[m
+[32m+[m[32m        }[m
+[32m+[m[32m        gv +="\n";[m
+[32m+[m[32m        for(Object o : g.edgeSet()){[m
+[32m+[m[32m            DefaultEdge ed = (DefaultEdge) o;[m
+[32m+[m[32m            String edS = ed.toString();[m
+[32m+[m[32m            // Supprimer les caractères non nécessaires[m
+[32m+[m[32m            String cleanedInput = edS.replaceAll("[()]", "");[m
+[32m+[m
+[32m+[m[32m            // Séparer la chaîne en éléments[m
+[32m+[m[32m            String[] elements = cleanedInput.split(" ");[m
+[32m+[m
+[32m+[m[32m            // Créer une liste pour stocker les éléments[m
+[32m+[m[32m            ArrayList<String> filteredList = new ArrayList<>();[m
+[32m+[m[32m            for(String e : elements){[m
+[32m+[m[32m                if(e.compareTo(";") != 0 && e.compareTo(":") !=0){[m
+[32m+[m[32m                    filteredList.add(e);[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m            gv = gv+""+filteredList.get(0)+" -- "+filteredList.get(2)+"; \n";[m
+[32m+[m[32m        }[m
+[32m+[m[32m        gv = gv+"}\n";[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        return gv;[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m
+     public Model getModel() {[m
+         return model;[m
+     }[m
+[31m-}[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/RAMI/src/src/GraphModelisation_double_bonds.java b/RAMI/src/src/GraphModelisation_double_bonds.java[m
+[1mindex e51e861..13c763b 100644[m
+[1m--- a/RAMI/src/src/GraphModelisation_double_bonds.java[m
+[1m+++ b/RAMI/src/src/GraphModelisation_double_bonds.java[m
+[36m@@ -1,100 +1,199 @@[m
+ package src;[m
+ [m
+ import org.chocosolver.solver.Model;[m
+[31m-import org.chocosolver.solver.constraints.Constraint;[m
+[31m-import org.chocosolver.solver.variables.BoolVar;[m
+[31m-import org.chocosolver.solver.variables.IntVar;[m
+[31m-import org.chocosolver.solver.variables.RealVar;[m
+[31m-import org.chocosolver.solver.variables.UndirectedGraphVar;[m
+[32m+[m[32mimport org.chocosolver.solver.variables.*;[m
+ import org.chocosolver.util.objects.graphs.GraphFactory;[m
+ import org.chocosolver.util.objects.graphs.UndirectedGraph;[m
+ import org.chocosolver.util.objects.setDataStructures.SetType;[m
+[31m-[m
+[32m+[m[32mimport org.jgrapht.Graph;[m
+[32m+[m[32mimport org.jgrapht.graph.DefaultEdge;[m
+[32m+[m[32mimport org.jgrapht.graph.SimpleGraph;[m
+ import java.util.ArrayList;[m
+[31m-import java.util.List;[m
+ import java.util.Map;[m
+[32m+[m[32mimport java.util.List;[m
+ [m
+[31m-public class GM {[m
+[32m+[m[32mpublic class GraphModelisation_double_bonds {[m
+ [m
+[31m-    Model model;[m
+[31m-    private BoolVar[][] doubleLiaisons;[m
+[31m-    private IntVar[] totalLiaisons;[m
+[31m-[m
+[31m-    GM(Atom atom) {[m
+[31m-        // Initialisation du modèle[m
+[31m-        this.model = new Model("Molecule Generation Problem");[m
+[31m-[m
+[31m-        int n = atom.nbAtom(); // Nombre d'atomes[m
+[31m-        // Création de la liste des identifiants des atomes[m
+[31m-        List<String> Id_Atomes = new ArrayList<>();[m
+[31m-        int[] quantites = atom.getQuantities();[m
+[31m-        String[] types = atom.getTypes();[m
+[31m-[m
+[31m-        for (int i = 0; i < types.length; i++) {[m
+[31m-            for (int j = 0; j < quantites[i]; j++) {[m
+[31m-                Id_Atomes.add(types[i]);[m
+[31m-            }[m
+[32m+[m[32m    static class Node {[m
+[32m+[m[32m        private int num;[m
+[32m+[m[32m        private String type;[m
+[32m+[m
+[32m+[m[32m        public Node(int num, String type) {[m
+[32m+[m[32m            this.num = num;[m
+[32m+[m[32m            this.type = type;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        public int getNum(){[m
+[32m+[m[32m            return this.num;[m
+[32m+[m[32m        }[m
+[32m+[m[32m        public String getType(){[m
+[32m+[m[32m            return this.type;[m
+         }[m
+[32m+[m[32m        @Override[m
+[32m+[m[32m        public String toString(){[m
+[32m+[m[32m            return "("+this.num+" ; "+this.type+")";[m
+[32m+[m[32m        }[m
+[32m+[m[32m    }[m
+ [m
+[32m+[m[32m    Model model;[m
+[32m+[m
+[32m+[m[32m   public GraphModelisation_double_bonds(Atom atom) {[m
+[32m+[m
+[32m+[m[32m       // Initialisation du modèle[m
+[32m+[m[32m       this.model = new Model("Molecule Generation Problem");[m
+[32m+[m
+[32m+[m[32m       int n = atom.nbAtom(); // Nombre d'atomes[m
+[32m+[m
+[32m+[m[32m       // Création de la liste des identifiants des atomes[m
+[32m+[m[32m       List<String> Id_Atomes = new ArrayList<>();[m
+[32m+[m[32m       int[] quantites = atom.getQuantities();[m
+[32m+[m[32m       String[] types = atom.getTypes();[m
+ [m
+[31m-        Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;[m
+[31m-        IntVar nombreDeNoeuds = model.intVar("nombreDeNoeuds", atom.nbAtom(), atom.nbAtom());[m
+[32m+[m[32m       for (int i = 0; i < types.length; i++) {[m
+[32m+[m[32m           for (int j = 0; j < quantites[i]; j++) {[m
+[32m+[m[32m               Id_Atomes.add(types[i]);[m
+[32m+[m[32m           }[m
+[32m+[m[32m       }[m
+ [m
+[31m-        // Création d'un graphe non orienté[m
+[31m-        UndirectedGraph LB = GraphFactory.makeStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET);[m
+[31m-        UndirectedGraph UB = GraphFactory.makeCompleteStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET, false);[m
+[32m+[m
+[32m+[m[32m       Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;[m
+[32m+[m[32m       IntVar nombreDeNoeuds = model.intVar("nombreDeNoeuds", atom.nbAtom(), atom.nbAtom());[m
+[32m+[m
+[32m+[m[32m       // Création d'un graphe non orienté[m
+[32m+[m[32m       UndirectedGraph LB = GraphFactory.makeStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET);[m
+[32m+[m[32m       UndirectedGraph UB = GraphFactory.makeCompleteStoredUndirectedGraph(model, n, SetType.BITSET, SetType.BITSET, false);[m
+         UndirectedGraphVar g = model.graphVar("g", LB, UB);[m
+ [m
+[31m-        // Matrice des liaisons (0 = aucune, 1 = simple, 2 = double)[m
+[31m-        IntVar[][] liaisons = new IntVar[n][n];[m
+[32m+[m[32m       // Matrice des liaisons (0 = aucune, 1 = simple, 2 = double)[m
+[32m+[m[32m       IntVar[][] liaisons = new IntVar[n][n];[m
+ [m
+[31m-        for (int i = 0; i < n; i++) {[m
+[31m-            for (int j = i + 1; j < n; j++) {[m
+[31m-                liaisons[i][j] = model.intVar("Liaison_" + i + "_" + j, 0, 2);[m
+ [m
+[31m-                // Somme des valences des deux atomes[m
+[31m-                int valenceSum = valenceMap.get(Id_Atomes.get(i)) + valenceMap.get(Id_Atomes.get(j));[m
+[32m+[m[32m       //Contrainte sur les doubles liaisons[m
+ [m
+[31m-                // Contrainte pour autoriser une double liaison si la somme des valences est >= 4[m
+[31m-                if (valenceSum < 4) {[m
+[31m-                    model.arithm(liaisons[i][j], "<", 2).post();[m
+[31m-                }[m
+[31m-            }[m
+[32m+[m[32m       for (int i = 0; i < n; i++) {[m
+[32m+[m[32m           for (int j = i + 1; j < n; j++) {[m
+[32m+[m[32m               liaisons[i][j] = model.intVar("Liaison_" + i + "_" + j, 0, 3);}[m
+[32m+[m[32m           }[m
+[32m+[m
+[32m+[m[32m       for (int i = 0; i < n; i++) {[m
+[32m+[m[32m           IntVar[] liaisonsAtome = new IntVar[n];[m
+[32m+[m[32m           for (int j = 0; j < n; j++) {[m
+[32m+[m[32m               if (i != j) {[m
+[32m+[m[32m                   liaisonsAtome[j] = liaisons[Math.min(i, j)][Math.max(i, j)];[m
+[32m+[m[32m               } else {[m
+[32m+[m[32m                   liaisonsAtome[j] = model.intVar(0); // Pas de liaison avec soi-même[m
+[32m+[m[32m               }[m
+[32m+[m[32m           }[m
+[32m+[m[32m           // Le total des liaisons pour l'atome i doit être égal à sa valence[m
+[32m+[m[32m           model.sum(liaisonsAtome, "=", valenceMap.get(Id_Atomes.get(i))).post();[m
+[32m+[m[32m       }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m       // Contraintes sur les arêtes  du graph en fonction des liaisons[m
+[32m+[m[32m       for (int i = 0; i < n; i++) {[m
+[32m+[m[32m           for (int j = i + 1; j < n; j++) {[m
+[32m+[m
+[32m+[m[32m               // Création d'une BoolVar pour la présence de l'arête[m
+[32m+[m[32m               BoolVar aretePresente = model.boolVar("arete_" + i + "_" + j);[m
+[32m+[m
+[32m+[m
+[32m+[m[32m               BoolVar liaisonSuperieureAZero = model.arithm(liaisons[i][j], ">", 0).reify();[m
+[32m+[m
+[32m+[m[32m               // Lier la présence de l'arête à la liaison[m
+[32m+[m[32m               model.arithm(aretePresente, "=", liaisonSuperieureAZero).post();[m
+[32m+[m
+[32m+[m[32m               // Lier la présence de l'arête au graphe[m
+[32m+[m[32m               model.edgeChanneling(g, aretePresente, i, j).post();[m
+[32m+[m
+[32m+[m
+[32m+[m[32m           }[m
+[32m+[m
+[32m+[m[32m           // Contrainte de connexité[m
+[32m+[m[32m           model.connected(g).post();[m
+[32m+[m[32m           // Contrainte sur le nombre de noeud[m
+[32m+[m[32m           model.nbNodes(g, nombreDeNoeuds).post();[m
+[32m+[m
+[32m+[m[32m       }[m
+[32m+[m[32m   }[m
+[32m+[m[32m    public static Graph translate(GraphVar g, String[] types, int[][] liaisons) {[m
+[32m+[m[32m        Graph<GraphModelisation_double_bonds.Node, DefaultEdge> transG = new SimpleGraph<>(DefaultEdge.class);[m
+[32m+[m[32m        int nbNodes = types.length;[m
+[32m+[m[32m        GraphModelisation_double_bonds.Node[] nodes = new GraphModelisation_double_bonds.Node[nbNodes];[m
+[32m+[m[32m        for(int i=0; i<nbNodes; i++){[m
+[32m+[m[32m            GraphModelisation_double_bonds.Node node = new GraphModelisation_double_bonds.Node(i, types[i]);[m
+[32m+[m[32m            nodes[i] = node;[m
+[32m+[m[32m            transG.addVertex(node);[m
+         }[m
+[31m-        for (int i = 0; i < n; i++) {[m
+[31m-            IntVar[] liaisonsAtome = new IntVar[n];[m
+[31m-            for (int j = 0; j < n; j++) {[m
+[31m-                if (i != j) {[m
+[31m-                    liaisonsAtome[j] = liaisons[Math.min(i, j)][Math.max(i, j)];[m
+[31m-                } else {[m
+[31m-                    liaisonsAtome[j] = model.intVar(0); // Pas de liaison avec soi-même[m
+[32m+[m
+[32m+[m[32m        int nd=nbNodes-1;[m
+[32m+[m[32m        for(int i = 0; i < nbNodes; i++) {[m
+[32m+[m[32m            for(int j = i + 1; j < nbNodes; j++) {[m
+[32m+[m[32m                if (g.getValue().containsEdge(i, j)) {[m
+[32m+[m[32m                    if (liaisons[i][j] == 2) {[m
+[32m+[m[32m                        nd+=1;[m
+[32m+[m[32m                        // Créer et ajouter un nouveau sommet[m
+[32m+[m[32m                        GraphModelisation_double_bonds.Node newNode = new GraphModelisation_double_bonds.Node(nd,"D");[m
+[32m+[m[32m                        transG.addVertex(newNode);[m
+[32m+[m
+[32m+[m[32m                        // Ajouter des arêtes entre le nouveau sommet et les sommets i et j[m
+[32m+[m[32m                        transG.addEdge(nodes[i], newNode);[m
+[32m+[m[32m                        transG.addEdge(newNode, nodes[j]);[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                    else if (liaisons[i][j]==3){[m
+[32m+[m
+[32m+[m[32m                        nd+=1;[m
+[32m+[m[32m                        // Créer et ajouter un nouveau sommet[m
+[32m+[m[32m                        GraphModelisation_double_bonds.Node newNode = new GraphModelisation_double_bonds.Node(nd,"T");[m
+[32m+[m[32m                        transG.addVertex(newNode);[m
+[32m+[m
+[32m+[m[32m                        // Ajouter des arêtes entre le nouveau sommet et les sommets i et j[m
+[32m+[m[32m                        transG.addEdge(nodes[i], newNode);[m
+[32m+[m[32m                        transG.addEdge(newNode, nodes[j]);[m
+[32m+[m[32m                    }[m
+[32m+[m
+[32m+[m[32m                    else {[m
+[32m+[m[32m                        // Ajouter une arête normale si la condition n'est pas remplie[m
+[32m+[m[32m                        transG.addEdge(nodes[i], nodes[j]);[m
+[32m+[m[32m                    }[m
+                 }[m
+             }[m
+[31m-            // Le total des liaisons pour l'atome i doit être égal à sa valence[m
+[31m-            model.sum(liaisonsAtome, "=", valenceMap.get(Id_Atomes.get(i))).post();[m
+         }[m
+ [m
+[31m-        for (int i = 0; i < n; i++) {[m
+[31m-            for (int j = i + 1; j < n; j++) {[m
+[31m-                // Création d'une BoolVar pour la présence de l'arête[m
+[31m-                BoolVar aretePresente = model.boolVar("arete_" + i + "_" + j);[m
+[31m-[m
+[31m-                // Réification de la contrainte de liaison[m
+[31m-                BoolVar liaisonSuperieureAZero = model.arithm(liaisons[i][j], ">", 0).reify();[m
+[32m+[m[32m        return transG;[m
+[32m+[m[32m    }[m
+ [m
+[31m-                // Lier la présence de l'arête à la liaison[m
+[31m-                model.arithm(aretePresente, "=", liaisonSuperieureAZero).post();[m
+[32m+[m[32m    public static String getGraphViz(Graph g){[m
+[32m+[m[32m        String gv = "graph G{ \n";[m
+ [m
+[31m-                // Lier la présence de l'arête au graphe[m
+[31m-                model.edgeChanneling(g, aretePresente, i, j).post();[m
+[32m+[m[32m        for(Object o : g.vertexSet()){[m
+[32m+[m[32m            GraphModelisation_double_bonds.Node n = (GraphModelisation_double_bonds.Node) o;[m
+[32m+[m[32m            gv += ""+n.getNum()+" [label=\""+n.getType()+"_"+n.getNum()+"\"]; \n";[m
+[32m+[m[32m        }[m
+[32m+[m[32m        gv +="\n";[m
+[32m+[m[32m        for(Object o : g.edgeSet()){[m
+[32m+[m[32m            DefaultEdge ed = (DefaultEdge) o;[m
+[32m+[m[32m            String edS = ed.toString();[m
+[32m+[m[32m            // Supprimer les caractères non nécessaires[m
+[32m+[m[32m            String cleanedInput = edS.replaceAll("[()]", "");[m
+[32m+[m
+[32m+[m[32m            // Séparer la chaîne en éléments[m
+[32m+[m[32m            String[] elements = cleanedInput.split(" ");[m
+[32m+[m
+[32m+[m[32m            // Créer une liste pour stocker les éléments[m
+[32m+[m[32m            ArrayList<String> filteredList = new ArrayList<>();[m
+[32m+[m[32m            for(String e : elements){[m
+[32m+[m[32m                if(e.compareTo(";") != 0 && e.compareTo(":") !=0){[m
+[32m+[m[32m                    filteredList.add(e);[m
+[32m+[m[32m                }[m
+             }[m
+[32m+[m[32m            gv = gv+""+filteredList.get(0)+" -- "+filteredList.get(2)+"; \n";[m
+         }[m
+[31m-        model.connected(g).post();[m
+[31m-        model.nbNodes(g, nombreDeNoeuds).post();[m
+[31m-    }[m
+[32m+[m[32m        gv = gv+"}\n";[m
+ [m
+[32m+[m[32m        return gv;[m
+[32m+[m[32m    }[m
+ [m
+     public Model getModel() {[m
+         return model;[m
+     }[m
+[32m+[m
+ }[m
+[1mdiff --git a/RAMI/src/src/Mainviz.java b/RAMI/src/src/Mainviz.java[m
+[1mindex 710132e..888ca22 100644[m
+[1m--- a/RAMI/src/src/Mainviz.java[m
+[1m+++ b/RAMI/src/src/Mainviz.java[m
+[36m@@ -1,2 +1,136 @@[m
+[31m-package src;public class Mainviz {[m
+[32m+[m[32mpackage src;[m
+[32m+[m
+[32m+[m[32mimport com.google.gson.Gson;[m
+[32m+[m[32mimport org.chocosolver.solver.Model;[m
+[32m+[m[32mimport org.chocosolver.solver.Solver;[m
+[32m+[m[32mimport org.chocosolver.solver.variables.*;[m
+[32m+[m[32mimport guru.nidi.graphviz.engine.Format;[m
+[32m+[m[32mimport guru.nidi.graphviz.engine.Graphviz;[m
+[32m+[m[32mimport org.chocosolver.solver.search.strategy.Search;[m
+[32m+[m
+[32m+[m[32mimport java.io.*;[m
+[32m+[m
+[32m+[m[32mimport java.io.FileReader;[m
+[32m+[m[32mimport java.io.IOException;[m
+[32m+[m[32mimport java.time.LocalDateTime;[m
+[32m+[m[32mimport java.time.format.DateTimeFormatter;[m
+[32m+[m[32mimport java.util.*;[m
+[32m+[m
+[32m+[m[32mimport org.jgrapht.Graph;[m
+[32m+[m[32mimport org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;[m
+[32m+[m[32mimport org.jgrapht.graph.DefaultEdge;[m
+[32m+[m
+[32m+[m
+[32m+[m[32mpublic class Mainviz {[m
+[32m+[m
+[32m+[m[32m    public static String data;[m
+[32m+[m
+[32m+[m[32m    public static void main(String[] args) {[m
+[32m+[m[32m        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");[m
+[32m+[m[32m        // Données d'entrée au format JSON[m
+[32m+[m[32m        data = "./RAMI/data/test.json";[m
+[32m+[m
+[32m+[m[32m//        String data = "data/test.json"; //pour paul sinon ça marche pas[m
+[32m+[m[32m        // Lecture des doonées[m
+[32m+[m[32m        Gson gson = new Gson();[m
+[32m+[m[32m        try (FileReader reader = new FileReader(data)) {[m
+[32m+[m[32m            Atom atom = gson.fromJson(reader, Atom.class);[m
+[32m+[m[32m            int nbrAtom=atom.getNbAtoms();[m
+[32m+[m
+[32m+[m[32m            Map<Integer, String> list_correspondance = AtomIndexer.getAtomIndices(data);[m
+[32m+[m
+[32m+[m[32m            // Création de la modélisation[m
+[32m+[m[32m            GraphModelisation_double_bonds mod = new GraphModelisation_double_bonds(atom);[m
+[32m+[m[32m            Model model = mod.getModel();[m
+[32m+[m[32m            System.out.println("Fin de Modélisation");[m
+[32m+[m
+[32m+[m[32m            // Résolution[m
+[32m+[m[32m            Solver solver = model.getSolver();[m
+[32m+[m
+[32m+[m[32m            Variable[] vars = model.getVars();[m
+[32m+[m
+[32m+[m[32m            // Recherche de toutes les solutions[m
+[32m+[m[32m            // On itère sur la variable de graphe[m
+[32m+[m[32m            List<Graph> listStruct = new ArrayList<>();[m
+[32m+[m
+[32m+[m[32m            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[1]));[m
+[32m+[m
+[32m+[m[32m            long startTime = System.currentTimeMillis();[m
+[32m+[m[32m            while (model.getSolver().solve()) {[m
+[32m+[m[32m                int[][] liaisons= getLiaisons(vars,nbrAtom);[m
+[32m+[m[32m                listStruct.add(GraphModelisation_double_bonds.translate((GraphVar) vars[1], atom.listTypes(),liaisons));[m
+[32m+[m
+[32m+[m[32m            }[m
+[32m+[m[32m            long endTime = System.currentTimeMillis();[m
+[32m+[m[32m            long duration = endTime - startTime;[m
+[32m+[m
+[32m+[m[32m            if (listStruct.size() == 0) {[m
+[32m+[m[32m                System.out.println("Aucunes solutions trouvées");[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m                for (int i = 0; i < listStruct.size(); i++) {[m
+[32m+[m[32m                    for (int j = i + 1; j < listStruct.size(); j++) {[m
+[32m+[m[32m                        Graph<GraphModelisation_double_bonds.Node, DefaultEdge> graph1 = listStruct.get(i);[m
+[32m+[m[32m                        Graph<GraphModelisation_double_bonds.Node, DefaultEdge> graph2 = listStruct.get(j);[m
+[32m+[m
+[32m+[m[32m                        VF2GraphIsomorphismInspector<GraphModelisation_double_bonds.Node, DefaultEdge> inspector =[m
+[32m+[m[32m                                new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisation_double_bonds.Node>() {[m
+[32m+[m[32m                                    @Override[m
+[32m+[m[32m                                    public int compare(GraphModelisation_double_bonds.Node v1, GraphModelisation_double_bonds.Node v2) {[m
+[32m+[m[32m                                        return v1.getType().equals(v2.getType()) ? 0 : -1;[m
+[32m+[m[32m                                    }[m
+[32m+[m[32m                                }, null);[m
+[32m+[m
+[32m+[m[32m                        if (inspector.isomorphismExists()) {[m
+[32m+[m[32m                            // Les graphes sont isomorphes; retirez un des graphes[m
+[32m+[m[32m                            listStruct.remove(j);[m
+[32m+[m[32m                            j--; // Ajustez l'indice après la suppression[m
+[32m+[m[32m                        }[m
+[32m+[m[32m                    }[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m            int i = 0;[m
+[32m+[m[32m            for (Graph g : listStruct) {[m
+[32m+[m[32m                System.out.println("Maintenant, " + listStruct.size() + " solutions");[m
+[32m+[m[32m                System.out.println("Temps d'exécution en millisecondes: " + duration);[m
+[32m+[m
+[32m+[m[32m                String graphe_visualized = GraphModelisation_double_bonds.getGraphViz(g);[m
+[32m+[m
+[32m+[m[32m                String graphe_visualizedPath = "./RAMI/graph_output/graph_" + i + "_" + LocalDateTime.now().format(formatter) + ".png";[m
+[32m+[m[32m                i += 1;[m
+[32m+[m[32m                try {[m
+[32m+[m[32m                    Graphviz.fromString(graphe_visualized)[m
+[32m+[m[32m                            .render(Format.PNG)[m
+[32m+[m[32m                            .toFile(new File(graphe_visualizedPath));[m
+[32m+[m
+[32m+[m[32m                } catch (IOException e) {[m
+[32m+[m[32m                    e.printStackTrace();[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        } catch (IOException e) {[m
+[32m+[m[32m            e.printStackTrace();[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m[32m    public static int[][] getLiaisons(Variable[] vars, int n) {[m
+[32m+[m[32m        int[][] liaisons = new int[n][n];[m
+[32m+[m
+[32m+[m[32m        for (Variable var : vars) {[m
+[32m+[m[32m            String name = var.getName();[m
+[32m+[m[32m            if (name.startsWith("Liaison")) {[m
+[32m+[m[32m                if (var.isInstantiated()) {[m
+[32m+[m[32m                    int value = ((IntVar) var).getValue(); // Cast en IntVar si c'est le type de vos variables[m
+[32m+[m[32m                    String[] parts = name.split("_");[m
+[32m+[m[32m                    int i = Integer.parseInt(parts[1]);[m
+[32m+[m[32m                    int j = Integer.parseInt(parts[2]);[m
+[32m+[m
+[32m+[m[32m                    liaisons[i][j] = value;[m
+[32m+[m[32m                    liaisons[j][i] = value; // Si la liaison est symétrique[m
+[32m+[m[32m                }[m
+[32m+[m[32m            }[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        return liaisons;[m
+[32m+[m[32m    }[m
+ }[m
+[1mdiff --git a/RAMI/src/src/MoleculeUtils.java b/RAMI/src/src/MoleculeUtils.java[m
+[1mindex b2e285b..955e917 100644[m
+[1m--- a/RAMI/src/src/MoleculeUtils.java[m
+[1m+++ b/RAMI/src/src/MoleculeUtils.java[m
+[36m@@ -31,7 +31,7 @@[m [mpublic class MoleculeUtils {[m
+ [m
+         //Distances :[m
+         try {[m
+[31m-            loadBondDistances("data/distances");[m
+[32m+[m[32m            loadBondDistances("C:\\Users\\romai\\Desktop\\RAMI\\TP\\RAMI\\data\\distances");[m
+         } catch (IOException e) {[m
+             throw new RuntimeException(e);[m
+         }[m
+[1mdiff --git a/TP.iml b/TP.iml[m
+[1mindex aa7d9d0..393dab0 100644[m
+[1m--- a/TP.iml[m
+[1m+++ b/TP.iml[m
+[36m@@ -7,6 +7,10 @@[m
+     </content>[m
+     <orderEntry type="inheritedJdk" />[m
+     <orderEntry type="sourceFolder" forTests="false" />[m
+[32m+[m[32m    <orderEntry type="library" name="guru.nidi.graphviz.java" level="project" />[m
+[32m+[m[32m    <orderEntry type="library" name="google.code.gson" level="project" />[m
+[32m+[m[32m    <orderEntry type="library" name="jgrapht.core" level="project" />[m
+[32m+[m[32m    <orderEntry type="library" name="nl.svenkonings.jacomo" level="project" />[m
+     <orderEntry type="library" name="choco-parsers-4.10.14-light(1)" level="project" />[m
+   </component>[m
+ </module>[m
+\ No newline at end of file[m
