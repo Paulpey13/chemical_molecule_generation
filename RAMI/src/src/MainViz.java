@@ -71,52 +71,44 @@ public class MainViz {
             List<Graph> listStruct = new ArrayList<>();
             model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[0]));
             while (model.getSolver().solve()) {
-                listStruct.add(GraphModelisation.translate((GraphVar) vars[0], atom.listTypes()));
+                Graph<GraphModelisation.Node, DefaultEdge> graph1 = GraphModelisation.translate((GraphVar) vars[0], atom.listTypes());
 
-            }
+                // On regarde si le graphe n'est pas isomorphe à un des graphes déjà trouvé
+                boolean new_g = true;
+                for(int i = 0; i <listStruct.size(); i++){
+                    Graph<GraphModelisation.Node, DefaultEdge> graph2 = listStruct.get(i);
+                    VF2GraphIsomorphismInspector<GraphModelisation.Node, DefaultEdge> inspector =
+                            new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisation.Node>() {
+                                @Override
+                                public int compare(GraphModelisation.Node v1, GraphModelisation.Node v2) {
+                                    return v1.getType().equals(v2.getType()) ? 0 : -1;
+                                }
+                            }, null);
 
-            if(listStruct.size() == 0){
-                System.out.println("Aucunes solutions trouvées");
-            }else{
-                for(int i=0; i<listStruct.size(); i++){
-                    for(int j=i+1; j<listStruct.size(); j++){
-                        Graph<GraphModelisation.Node, DefaultEdge> graph1 = listStruct.get(i);
-                        Graph<GraphModelisation.Node, DefaultEdge> graph2 = listStruct.get(j);
-
-                        VF2GraphIsomorphismInspector<GraphModelisation.Node, DefaultEdge> inspector =
-                                new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisation.Node>() {
-                                    @Override
-                                    public int compare(GraphModelisation.Node v1, GraphModelisation.Node v2) {
-                                        return v1.getType().equals(v2.getType()) ? 0 : -1;
-                                    }
-                                }, null);
-
-                        if (inspector.isomorphismExists()) {
-                            // Les graphes sont isomorphes; retirez un des graphes
-                            listStruct.remove(j);
-                            j--; // Ajustez l'indice après la suppression
-                        }
+                    if (inspector.isomorphismExists()) {
+                        // Les graphes sont isomorphes; retirez un des graphes
+                        new_g = false;
                     }
                 }
-            }
-            int i = 0;
-            for(Graph g : listStruct){
-                System.out.println("Maintenant, "+listStruct.size()+" solutions");
-                System.out.println(g);
-                System.out.println(GraphModelisation.getGraphViz(g));
 
-                String graphe_visualized = GraphModelisation.getGraphViz(g);
+                if(new_g){
+                    // On ajoute le graphe à la liste
+                    listStruct.add(graph1);
+                    String graphe_visualized = GraphModelisation.getGraphViz(graph1);
 
-                String graphe_visualizedPath = "./RAMI/graph_output/graph_"+i+"_"+ LocalDateTime.now().format(formatter) + ".png";
-                i += 1;
-                try {
-                    Graphviz.fromString(graphe_visualized)
-                            .render(Format.PNG)
-                            .toFile(new File(graphe_visualizedPath));
+                    String graphe_visualizedPath = "./RAMI/graph_output/graph_"+listStruct.size()+"_"+ LocalDateTime.now().format(formatter) + ".png";
+                    System.out.println(graphe_visualized);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    try {
+                        Graphviz.fromString(graphe_visualized)
+                                .render(Format.PNG)
+                                .toFile(new File(graphe_visualizedPath));
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
+
             }
 
 

@@ -76,6 +76,8 @@ public class MainSpace {
                 }
 
                 if(new_g){
+                    // On ajoute le graphe à la liste
+                    listStruct.add(graph1);
                     // On crée la modélisation pour chercher un placement dans l'espace
                     Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0], -1);
                     Model model2 = mod2.getModel();
