@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cml xmlns="http://www.xml-cml.org/schema">
+  <molecule id ="1">
+    <atomArray>
+      <atom id="a0" elementType="O" x3="0.000000" y3="0.000000" z3="0.000000"/>
+      <atom id="a1" elementType="H" x3="-6.758553" y3="-95.357423" z3="-9.845332"/>
+      <atom id="a2" elementType="H" x3="-44.901585" y3="-55.897868" z3="-61.484150"/>
+    </atomArray>
+    <bondArray>
+      <bond atomRefs2="a0 a1" order="1"/>
+      <bond atomRefs2="a0 a2" order="1"/>
+    </bondArray>
+  </molecule>
+</cml>

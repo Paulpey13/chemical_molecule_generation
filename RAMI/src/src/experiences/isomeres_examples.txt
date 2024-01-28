@@ -1,0 +1,27 @@
+"H:6,C:2,O:2","H:6,C:3,O:1","H:8,C:4,O:2","H:10,C:5,O:1","H:12,C:6,O:1","H:14,C:7,O:1"
+
+
+
+
+
+
+
+
+
+C₂H₄O₂ (Acide acétique, Éthanol)
+C₃H₆O (Propanone, Propanal, Isopropanol)
+C₄H₈O₂ (Acide butanoïque, Butanol, Éther diéthylique)
+C₅H₁₀O (Pentanol, Méthyl-butanol, Diéthyl éther)
+C₆H₁₂O (Hexanol, Méthyl-pentanol, Éthyl-butanol)
+C₇H₁₄O (Heptanol, Méthyl-hexanol, Éthyl-pentanol)
+C₈H₁₆O (Octanol, Méthyl-heptanol, Éthyl-hexanol)
+C₉H₁₈O (Nonanol, Méthyl-octanol, Éthyl-heptanol)
+C₁₀H₂₀O (Décanol, Méthyl-nonanol, Éthyl-octanol)
+C₁₁H₂₂O (Undécanol, Méthyl-décanol, Éthyl-nonanol)
+C₁₂H₂₄O (Dodécanol, Méthyl-undécanol, Éthyl-décanol)
+C₁₃H₂₆O (Tridécanol, Méthyl-dodécanol, Éthyl-undécanol)
+C₁₄H₂₈O (Tétradécanol, Méthyl-tridécanol, Éthyl-dodécanol)
+C₁₅H₃₀O (Pentadécanol, Méthyl-tétradécanol, Éthyl-tridécanol)
+C₁₆H₃₂O (Hexadécanol, Méthyl-pentadécanol, Éthyl-tétradécanol)
+C₁₇H₃₄O (Heptadécanol, Méthyl-hexadécanol, Éthyl-pentadécanol)
+C₁₈H₃₆O (Octadécanol, Méthyl-heptadécanol, Éthyl-hexadécanol)

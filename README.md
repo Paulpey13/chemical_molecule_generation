@@ -5,7 +5,11 @@
 1. [Introduction](#introduction)
 2. [Installation](#installation)
 3. [Usage](#usage)
+<<<<<<< HEAD
 4. [Code](#code).
+=======
+4. [Code](#code)
+>>>>>>> miss_clean
 5. [Features](#features)
 6. [Dependencies](#dependencies)
 9. [Examples](#examples)
