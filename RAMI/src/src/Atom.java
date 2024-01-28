@@ -7,6 +7,10 @@ public class Atom {
 
     private int[][] structure;
 
+    public static int SIMPLE_LIAISON =1;
+    public static int DOUBLE_LIAISON =2;
+    public static int TRIPLE_LIAISON =3;
+
     public String[] listTypes(){
         int n= this.nbAtom();
         String[] typesList = new String[n];
@@ -22,6 +26,8 @@ public class Atom {
                 maxIndex += this.quantities[j];
             }
             typesList[i] = type;
+            type = "None";
+
         }
         return typesList;
     }
@@ -35,6 +41,13 @@ public class Atom {
         return st;
     }
 
+    public String chimForm(){
+        String form = "";
+        for(int i = 0; i<quantities.length; i++){
+            form = form +types[i]+quantities[i];
+        }
+        return form;
+    }
     public int nbAtom(){
         int sum = 0;
         for (int i = 0; i<quantities.length; i++) {

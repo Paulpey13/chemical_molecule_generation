@@ -29,7 +29,8 @@ public class MainSpace {
     public static void main(String[] args) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
         // Données d'entrée au format JSON
-        data = "./RAMI/data/test.json";
+        data = args[0];
+//        data = "./RAMI/data/test.json";
 
 //        String data = "data/test.json"; //pour paul sinon ça marche pas
         // Lecture des doonées
@@ -38,11 +39,12 @@ public class MainSpace {
             Atom atom = gson.fromJson(reader, Atom.class);
             int nbrAtom=atom.getNbAtoms();
 
+            System.out.println("Formule chimique : "+ atom.chimForm());
+
 
             // Création de la modélisation
             GraphModelisationMulti mod = new GraphModelisationMulti(atom);
             Model model = mod.getModel();
-            System.out.println("Fin de Modélisation");
 
             // Résolution
             Solver solver = model.getSolver();
@@ -53,13 +55,23 @@ public class MainSpace {
             // On itère sur la variable de graphe
             List<Graph> listStruct = new ArrayList<>();
 
-            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[1]));
-
-            long startTime = System.currentTimeMillis();
+            long startTimeTot = System.currentTimeMillis();
+            long startTimeG = System.currentTimeMillis();
+            long endTimeG;
+            long durationG;
+            long startTimeC = System.currentTimeMillis();
+            long endTimeC;
+            long durationC;
+            int index = atom.getNbAtoms()*(atom.getNbAtoms()-1)/2 +1;
+            if(atom.getStructure().length != 0){
+                index += atom.getStructure().length;
+            }
+            int total = 0;
             while (model.getSolver().solve()) {
+                total += 1;
                 boolean new_g = true;
                 int[][] liaisons= GraphModelisationMulti.getLiaisons(vars,nbrAtom);
-                Graph<GraphModelisationMulti.Node, DefaultEdge> graph1 = GraphModelisationMulti.translate((GraphVar) vars[1], atom.listTypes(),liaisons);
+                Graph<GraphModelisationMulti.Node, DefaultEdge> graph1 = GraphModelisationMulti.translate((GraphVar) vars[index], atom.listTypes(),liaisons);
 
                 for (int j = 1; j < listStruct.size(); j++) {
                     Graph<GraphModelisationMulti.Node, DefaultEdge> graph2 = listStruct.get(j);
@@ -75,9 +87,13 @@ public class MainSpace {
                     if(inspector.isomorphismExists()){
                         new_g = false ;
                     }
+
                 }
 
                 if (new_g) {
+                    endTimeG = System.currentTimeMillis();
+                    durationG = endTimeG - startTimeG;
+                    System.out.println("\nNouvel isomère trouvé en "+durationG+" ms.");
                     // Si c'est pas un isomère
                     // On crée la visualisation 2D de la structure du graohe
                     String graphe_visualized = GraphModelisationMulti.getGraphViz(graph1);
@@ -98,12 +114,16 @@ public class MainSpace {
                     Modelisation mod2 = new Modelisation(atom, liaisons,0);
                     Model model2 = mod2.getModel();
 
+                    startTimeC = System.currentTimeMillis();
                     if(model2.getSolver().solve()){
+                        endTimeC = System.currentTimeMillis();
+                        durationC = endTimeC - startTimeC;
+                        System.out.println("Coordonnées pour cet isomère trouvé en : "+durationC+" ms");
                         // Si il existe une solution, on crée le CML correspondant
                         Variable[] vars2 = model2.getVars();
 
                         // Génération du CML
-                        GraphVar graphVar = (GraphVar) vars[1];
+                        GraphVar graphVar = (GraphVar) vars[index];
                         RealVar[] xs = mod2.getXs(); // Assurez-vous que Modelisation a des getters pour xs, ys, zs
                         RealVar[] ys = mod2.getYs();
                         RealVar[] zs = mod2.getZs();
@@ -118,10 +138,13 @@ public class MainSpace {
                 }else {
 //                    System.out.println("ISOMERE");
                 }
-
+                startTimeG = System.currentTimeMillis();
             }
-
-            System.out.println(listStruct.size());
+            long endTimeTot = System.currentTimeMillis();
+            long duration = endTimeTot - startTimeTot;
+            System.out.println("\nTemps d'execution total : "+duration+" ms.");
+            System.out.println("Nombre d'isomère trouvées : "+listStruct.size());
+            System.out.println("Nombre total de structure de graphe : "+total);
         } catch (IOException e) {
 //            e.printStackTrace();
         }
