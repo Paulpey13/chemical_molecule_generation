@@ -7,6 +7,10 @@ import org.chocosolver.solver.variables.Variable;
 
 import java.util.Map;
 
+/**
+ * La classe <code>Modelisation</code> permet de modéliser l'ajout de coordonnées à une structure de graphe de molécule.
+ *  Ainsi, pour chaque atome on va vouloir associer des coordonnées dans l'espace 3D.
+ */
 public class Modelisation {
     private Model model;
     public RealVar[] xs;
@@ -17,6 +21,13 @@ public class Modelisation {
 
     public int numFctObj; // -1 si pas de fonction objective
 
+    /**
+     * Constructeur pour créer une nouvelle instance de <code>Modelisation</code> permet de généré une instance CSP correspondante au problème de génération de coordonnées pour un graphe de structure moléculaire.
+     *
+     * @param atom l'ensemble des atomes de la molécule
+     * @param liaisons le tableau des types de liaisons entre les atomes
+     * @param num le numéro de la fonction objectif que l'on souhaite ajouté (-1 sinon)
+     */
     Modelisation(Atom atom, int[][] liaisons, int num){
         this.numFctObj = num;
         // List des valences de chaque atome

@@ -22,6 +22,11 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * La classe <code>MainSpace</code> permet de lancer la modélisation puis la résolution de l'instance issus de la modélisation afin, dà partir d'une formule chimique, déterminer l'ensemble des isomères correspondant à celle-ci.
+ *  De plus, pour chaque structure on procède à une nouvelle modélisation et résolution permettant la génération de coordonnées pour chaque atomes de celle-ci.
+ * Cette classe permet la visualisation en 3D des molécules via un format CML à donner au logiciel JMol.
+ */
 public class MainSpace {
 
     public static String data;

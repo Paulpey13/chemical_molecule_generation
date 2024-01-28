@@ -12,7 +12,18 @@ import org.jgrapht.graph.SimpleGraph;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * La classe <code>GraphModelisation</code> fournit des méthodes pour la modélisation du problème de recherche de structure de graphe correspondant à une formule chimique données.
+ * <p>
+ * Cette classe permet de définir les différentes variables et contraintes permettant de définir une instance CSP correspondant au problème de génération de structure sous forme de graphe d'une molécule à partir de sa formule chimique.
+ * Cette modélisation ne prend en compte que les liaisons simples entre atomes
+ * </p>
+ */
 public class GraphModelisation {
+
+    /**
+     * Cette classe <code>Node</code> permet de modéliser un noeud du graphe en fonction de som numéro et de son étiquette (type d'atome).
+     */
     static class Node {
         private int num;
         private String type;
@@ -33,6 +44,12 @@ public class GraphModelisation {
         }
     }
     Model model;
+
+    /**
+     * Permet la création d'une instance CSP correspondant à la génération de structure de graphe d'une molécule.
+     * Cette modélisation prend en compte les liaisons simples, doubles, et triples.
+     * @param atom la molécule en question
+     */
     GraphModelisation(Atom atom){
         // List des valences de chaque atome
         Map<String, Integer> valenceMap = MoleculeUtils.VALENCE_MAP;
@@ -44,7 +61,6 @@ public class GraphModelisation {
         model = new Model("Molecule Generation Problem");
 
         int n = atom.nbAtom(); // Nombre d'atomes de la molécule
-        //int nb_types = atom.nbTypes(); // Nombre de type d'atomes différents
         String[] types = atom.getTypes();
 
         // VARIABLES
@@ -92,6 +108,12 @@ public class GraphModelisation {
 
     }
 
+    /**
+     * Permet de traduire les caractèristique d'une variable de graphe de notre modélisation en variable de graphe de la bibliothèqye JGraph.
+     * @param g une variable de graphe de chocosolver
+     * @param types le tableau des types de chaque sommet du graphe pour avoir leur étiquette.
+     * @return Renvoie la correspondance du graphe de JGraph.
+     */
     public static Graph translate(GraphVar g, String[] types){
         Graph<Node, DefaultEdge> transG = new SimpleGraph<>(DefaultEdge.class);
 
@@ -113,6 +135,11 @@ public class GraphModelisation {
        return transG;
     }
 
+    /**
+     * Permet d'obtenir le format Graphviz pour l'affichage.
+     * @param g un graphe de la bibliothèque JMol
+     * @return Renvoie le format graphviz sous forme de chaine de caractère.
+     */
     public static String getGraphViz(Graph g){
         String gv = "graph G{ \n";
 
