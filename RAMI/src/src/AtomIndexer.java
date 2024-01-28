@@ -7,13 +7,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Cette classe gère la conversion des indices/nœuds d'un graphe en noms d'atomes
+ * en utilisant un fichier JSON pour spécifier les types et les quantités d'atomes.
+ * Cela permet une bonne visualition via graphviz
+ */
 public class AtomIndexer {
 
+    /**
+     * Classe interne pour stocker les données d'atome à partir du fichier JSON.
+     */
     static class AtomData {
         List<String> types;
         List<Integer> quantities;
     }
 
+    /**
+     * Cette méthode extrait les indices d'atomes à partir du fichier JSON
+     * et les associe à leurs types correspondants.
+     *
+     * @param filePath Le chemin du fichier JSON contenant les données des atomes.
+     * @return Un dictionnaire associant les indices d'atomes à leurs types.
+     */
     public static Map<Integer, String> getAtomIndices(String filePath) {
         Map<Integer, String> atomIndices = new HashMap<>();
         Map<String, Integer> atomCount = new HashMap<>();  // Nouvelle map pour suivre le nombre d'occurrences de chaque type d'atome
@@ -47,6 +62,14 @@ public class AtomIndexer {
         return atomIndices;
     }
 
+    /**
+     * Cette méthode convertit la sortie de GraphViz en remplaçant les indices/nœuds
+     * par les noms d'atomes correspondants en utilisant le dictionnaire fourni.
+     *
+     * @param graphVizOutput La sortie générée par GraphViz.
+     * @param atomIndices    Le dictionnaire associant les indices d'atomes à leurs noms.
+     * @return La sortie de GraphViz avec les noms d'atomes au lieu des indices.
+     */
     public static String convertGraphVizOutput(String graphVizOutput, Map<Integer, String> atomIndices) {
         // Diviser la sortie en lignes
         String[] lines = graphVizOutput.split("\n");
@@ -78,7 +101,6 @@ public class AtomIndexer {
 
         return convertedOutput.toString();
     }
-
 
     // Vous pouvez tester la fonction ici
     public static void main(String[] args) {
