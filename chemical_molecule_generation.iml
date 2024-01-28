@@ -10,5 +10,7 @@
     <orderEntry type="library" name="ejlchina.okhttps.gson" level="application" />
     <orderEntry type="library" name="nl.svenkonings.jacomo.chocosolver" level="application" />
     <orderEntry type="library" name="guru.nidi.graphviz.java" level="project" />
+    <orderEntry type="library" name="slf4j.integration" level="project" />
+    <orderEntry type="library" name="slf4j.reload4j" level="project" />
   </component>
 </module>
