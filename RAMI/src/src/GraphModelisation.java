@@ -110,7 +110,6 @@ public class GraphModelisation {
                 }
             }
         }
-//
        return transG;
     }
 

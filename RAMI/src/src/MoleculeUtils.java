@@ -1,12 +1,10 @@
 package src;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
-import src.BondDistance;
+import java.util.Map;
 
 
 public class MoleculeUtils {
@@ -31,7 +29,7 @@ public class MoleculeUtils {
 
         //Distances :
         try {
-            loadBondDistances("data/distances");
+            loadBondDistances("./RAMI/data/distances");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -54,11 +52,26 @@ public class MoleculeUtils {
     private static void loadBondDistances(String fileName) throws IOException {
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            String[] distanceRange;
+            String[] atoms;
+            int type;
 
+            while ((line = br.readLine()) != null) {
                 String[] parts = line.split("\\s+");
-                String[] atoms = parts[0].split("-");
-                String[] distanceRange = parts[1].split("–");
+                if(line.contains("#")){ // Simple liaisons
+                    atoms = parts[0].split("#");
+                    distanceRange = parts[1].split("–");
+                    type = 3;
+                } else if (line.contains("=")) { // Double liaisons
+                    atoms = parts[0].split("=");
+                    distanceRange = parts[1].split("–");
+                    type = 2;
+                } else  { // Triple liaisons
+                    atoms = parts[0].split("-");
+                    distanceRange = parts[1].split("–");
+                    type = 1;
+                }
+
                 int minDistance;
                 int maxDistance;
 
@@ -73,16 +86,31 @@ public class MoleculeUtils {
                     maxDistance = Integer.parseInt(distanceRange[0]) + 1;
                 }
 
-                BondDistance bondDistance = new BondDistance(minDistance, maxDistance);
-                BOND_DISTANCES.put(atoms[0] + "-" + atoms[1], bondDistance);
-                BOND_DISTANCES.put(atoms[1] + "-" + atoms[0], bondDistance); // Stocker la distance dans les deux sens
+                BondDistance bondDistance = new BondDistance(minDistance, maxDistance, type);
+                if (type == 1){
+                    BOND_DISTANCES.put(atoms[0] + "-" + atoms[1], bondDistance);
+                    BOND_DISTANCES.put(atoms[1] + "-" + atoms[0], bondDistance); // Stocker la distance dans les deux sens
+                } else if (type == 2) {
+                    BOND_DISTANCES.put(atoms[0] + "=" + atoms[1], bondDistance);
+                    BOND_DISTANCES.put(atoms[1] + "=" + atoms[0], bondDistance); // Stocker la distance dans les deux sens
+                }else {
+                    BOND_DISTANCES.put(atoms[0] + "#" + atoms[1], bondDistance);
+                    BOND_DISTANCES.put(atoms[1] + "#" + atoms[0], bondDistance); // Stocker la distance dans les deux sens
+                }
             }
         }
     }
 
 
-    public static BondDistance getBondDistance(String atom1, String atom2) {
-        return BOND_DISTANCES.getOrDefault(atom1 + "-" + atom2, new BondDistance(-1, -1));
+    public static BondDistance getBondDistance(String atom1, String atom2, int type) {
+        if(type == 1){
+            return BOND_DISTANCES.getOrDefault(atom1 + "-" + atom2, new BondDistance(-1, -1,1));
+        } else if (type == 2) {
+            return BOND_DISTANCES.getOrDefault(atom1 + "=" + atom2, new BondDistance(-1, -1,1));
+        }else{
+            return BOND_DISTANCES.getOrDefault(atom1 + "#" + atom2, new BondDistance(-1, -1,1));
+        }
+
     }
 }
 

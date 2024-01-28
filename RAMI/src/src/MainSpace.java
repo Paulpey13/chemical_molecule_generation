@@ -21,12 +21,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 
 public class MainSpace {
 
-
     public static String data;
+
     public static void main(String[] args) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddHHmmss");
         // Données d'entrée au format JSON
@@ -37,73 +36,95 @@ public class MainSpace {
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(data)) {
             Atom atom = gson.fromJson(reader, Atom.class);
+            int nbrAtom=atom.getNbAtoms();
 
-            Map<Integer, String> list_correspondance = AtomIndexer.getAtomIndices(data);
 
             // Création de la modélisation
-            GraphModelisation mod = new GraphModelisation(atom);
+            GraphModelisationMulti mod = new GraphModelisationMulti(atom);
             Model model = mod.getModel();
             System.out.println("Fin de Modélisation");
 
             // Résolution
             Solver solver = model.getSolver();
-            Variable[] vars = model.getVars();
 
+            Variable[] vars = model.getVars();
 
             // Recherche de toutes les solutions
             // On itère sur la variable de graphe
             List<Graph> listStruct = new ArrayList<>();
-            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[0]));
-            while (model.getSolver().solve()) {
-                Graph<GraphModelisation.Node, DefaultEdge> graph1 = GraphModelisation.translate((GraphVar) vars[0], atom.listTypes());
 
-                // On regarde si le graphe n'est pas isomorphe à un des graphes déjà trouvé
+            model.getSolver().setSearch(Search.graphVarSearch((GraphVar) vars[1]));
+
+            long startTime = System.currentTimeMillis();
+            while (model.getSolver().solve()) {
                 boolean new_g = true;
-                for(int i = 0; i <listStruct.size(); i++){
-                    Graph<GraphModelisation.Node, DefaultEdge> graph2 = listStruct.get(i);
-                    VF2GraphIsomorphismInspector<GraphModelisation.Node, DefaultEdge> inspector =
-                            new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisation.Node>() {
+                int[][] liaisons= GraphModelisationMulti.getLiaisons(vars,nbrAtom);
+                Graph<GraphModelisationMulti.Node, DefaultEdge> graph1 = GraphModelisationMulti.translate((GraphVar) vars[1], atom.listTypes(),liaisons);
+
+                for (int j = 1; j < listStruct.size(); j++) {
+                    Graph<GraphModelisationMulti.Node, DefaultEdge> graph2 = listStruct.get(j);
+
+                    VF2GraphIsomorphismInspector<GraphModelisationMulti.Node, DefaultEdge> inspector =
+                            new VF2GraphIsomorphismInspector<>(graph1, graph2, new Comparator<GraphModelisationMulti.Node>() {
                                 @Override
-                                public int compare(GraphModelisation.Node v1, GraphModelisation.Node v2) {
+                                public int compare(GraphModelisationMulti.Node v1, GraphModelisationMulti.Node v2) {
                                     return v1.getType().equals(v2.getType()) ? 0 : -1;
                                 }
                             }, null);
 
-                    if (inspector.isomorphismExists()) {
-                        // Les graphes sont isomorphes; retirez un des graphes
-                        new_g = false;
+                    if(inspector.isomorphismExists()){
+                        new_g = false ;
                     }
                 }
 
-                if(new_g){
+                if (new_g) {
+                    // Si c'est pas un isomère
+                    // On crée la visualisation 2D de la structure du graohe
+                    String graphe_visualized = GraphModelisationMulti.getGraphViz(graph1);
+                    String graphe_visualizedPath = "./RAMI/graph_output/graph_" + listStruct.size() + "_" + LocalDateTime.now().format(formatter) + ".png";
+                    try {
+                        Graphviz.fromString(graphe_visualized)
+                                .render(Format.PNG)
+                                .toFile(new File(graphe_visualizedPath));
+
+                    } catch (IOException e) {
+//                    e.printStackTrace();
+                    }
+
                     // On ajoute le graphe à la liste
                     listStruct.add(graph1);
+
                     // On crée la modélisation pour chercher un placement dans l'espace
-                    Modelisation mod2 = new Modelisation(atom, (GraphVar) vars[0], -1);
+                    Modelisation mod2 = new Modelisation(atom, liaisons,0);
                     Model model2 = mod2.getModel();
 
                     if(model2.getSolver().solve()){
+                        // Si il existe une solution, on crée le CML correspondant
                         Variable[] vars2 = model2.getVars();
-                        for(Variable v : vars2){
-                            System.out.println(v);
-                        }
+
                         // Génération du CML
-                        GraphVar graphVar = (GraphVar) vars[0];
+                        GraphVar graphVar = (GraphVar) vars[1];
                         RealVar[] xs = mod2.getXs(); // Assurez-vous que Modelisation a des getters pour xs, ys, zs
                         RealVar[] ys = mod2.getYs();
                         RealVar[] zs = mod2.getZs();
+
                         String[] atomTypes = CML_generator.buildAtomTypesArray(atom);
-                        CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data);
+                        CML_generator.generateCMLFiles(graphVar, atomTypes, xs, ys, zs,data, liaisons);
                     }
                     else{
                         System.out.println("Pas de solution de coordonnées pour cette structure de graphe");
                     }
+
+                }else {
+//                    System.out.println("ISOMERE");
                 }
 
             }
 
+            System.out.println(listStruct.size());
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
+
     }
 }

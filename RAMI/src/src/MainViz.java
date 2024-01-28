@@ -1,43 +1,25 @@
 package src;
 
 import com.google.gson.Gson;
-import org.chocosolver.solver.constraints.Constraint;
-import org.chocosolver.solver.Model;
-import org.chocosolver.solver.Solution;
-import org.chocosolver.solver.Solver;
-import org.chocosolver.solver.variables.*;
 import guru.nidi.graphviz.engine.Format;
 import guru.nidi.graphviz.engine.Graphviz;
 import org.chocosolver.solver.Model;
-import org.chocosolver.solver.variables.*;
-import org.chocosolver.util.objects.graphs.GraphFactory;
-import org.chocosolver.util.objects.graphs.UndirectedGraph;
-import org.chocosolver.util.objects.setDataStructures.SetType;
-import org.chocosolver.util.objects.graphs.UndirectedGraph;
-import org.chocosolver.util.objects.setDataStructures.SetType;
-import com.google.gson.Gson;
+import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.search.strategy.Search;
+import org.chocosolver.solver.variables.GraphVar;
+import org.chocosolver.solver.variables.Variable;
+import org.jgrapht.Graph;
+import org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;
+import org.jgrapht.graph.DefaultEdge;
 
-import java.io.*;
-
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Map;
 import java.util.List;
-
-import org.jgrapht.Graph;
-import org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;
-import org.jgrapht.graph.DefaultEdge;
-import src.Atom;
-import src.Modelisation;
-
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-import static org.chocosolver.solver.search.strategy.Search.*;
 
 
 public class MainViz {
@@ -54,7 +36,6 @@ public class MainViz {
         try (FileReader reader = new FileReader(data)) {
             Atom atom = gson.fromJson(reader, Atom.class);
 
-            Map<Integer, String> list_correspondance = AtomIndexer.getAtomIndices(data);
 
             // Création de la modélisation
             GraphModelisation mod = new GraphModelisation(atom);
