@@ -20,6 +20,10 @@ import org.jgrapht.Graph;
 import org.jgrapht.alg.isomorphism.VF2GraphIsomorphismInspector;
 import org.jgrapht.graph.DefaultEdge;
 
+/**
+ * La classe <code>MainSpace</code> permet de lancer la modélisation puis la résolution de l'instance issus de la modélisation afin, dà partir d'une formule chimique, déterminer l'ensemble des isomères correspondant à celle-ci.
+ * Cette classe permet une visualisation 2D des molécules.
+ */
 public class MainVIz {
     public static String data;
 

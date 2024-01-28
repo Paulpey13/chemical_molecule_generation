@@ -1,16 +1,45 @@
 package src;
 import java.util.Arrays;
 
+/**
+ * La classe <code>Atom</code> fournit des méthodes pour stocker et manipuler les formules chimies données en entrée
+ * <p>
+ * Une formule chimique est composée de plusieurs <code>types</code> d'atome, chacun en une certaine <code>quantities</code>.
+ * De plus, on peut établir au préalable certaines liaisons entre certains atomes. Ces liaisons en question sont stockées dans <code>structure</code>
+ * </p>
+ *
+ */
 public class Atom {
-    private String[] types;
-    private int[] quantities;
+    private String[] types; // Différents types des atomes présents dans la molécule
+    private int[] quantities; // La quantités de chaque type d'atome présents
 
-    private int[][] structure;
+    private int[][] structure; // Stockage des liaisons pré-établit
 
     public static int SIMPLE_LIAISON =1;
     public static int DOUBLE_LIAISON =2;
     public static int TRIPLE_LIAISON =3;
 
+
+    /**
+     * Affiche la liste de chaque atome et leur type
+     *
+     * @return La chaine de caracère correspondante.
+     */
+    public String printListTypes(){
+        String[] t = listTypes();
+        String st = "";
+        for(String s : t){
+            st = st +" "+ s;
+        }
+        return st;
+    }
+
+
+    /**
+     * Renvoie un tableau de la taille du nombre d'atome de la molécule et associe le type à chaque atome d'incide l'indice du tableau.
+     *
+     * @return Le tableau du type de chaque atome de la molécule
+     */
     public String[] listTypes(){
         int n= this.nbAtom();
         String[] typesList = new String[n];
@@ -32,15 +61,10 @@ public class Atom {
         return typesList;
     }
 
-    public String printListTypes(){
-        String[] t = listTypes();
-        String st = "";
-        for(String s : t){
-            st = st +" "+ s;
-        }
-        return st;
-    }
-
+    /**
+     * Permet d'obtenir la formule chimique associé à la molécule
+     * @return La chaine de caractères correspondant à la formule chimique
+     */
     public String chimForm(){
         String form = "";
         for(int i = 0; i<quantities.length; i++){
@@ -48,6 +72,11 @@ public class Atom {
         }
         return form;
     }
+
+    /**
+     * Permet d'obtenir le nombre d'atome présent dans la molécule
+     * @return Renvoie le nombre d'atome
+     */
     public int nbAtom(){
         int sum = 0;
         for (int i = 0; i<quantities.length; i++) {
@@ -87,6 +116,11 @@ public class Atom {
                 ", quantities=" + Arrays.toString(quantities) +
                 '}';
     }
+
+    /**
+     * Permet d'obtenir le nombre d'atome présent dans la molécule
+     * @return Renvoie le nombre d'atome
+     */
     public int getNbAtoms() {
         int n = 0;
 

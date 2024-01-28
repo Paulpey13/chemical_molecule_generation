@@ -11,8 +11,18 @@ import org.jgrapht.graph.SimpleGraph;
 
 import java.util.*;
 
+/**
+ * La classe <code>GraphModelisationMulti</code> fournit des méthodes pour la modélisation du problème de recherche de structure de graphe correspondant à une formule chimique données.
+ * <p>
+ * Cette classe permet de définir les différentes variables et contraintes permettant de définir une instance CSP correspondant au problème de génération de structure sous forme de graphe d'une molécule à partir de sa formule chimique.
+ * Cette modélisation prend en compte les liaisons simples, doubles et triples.
+ * </p>
+ */
 public class GraphModelisationMulti {
 
+    /**
+     * Cette classe <code>Node</code> permet de modéliser un noeud du graphe en fonction de som numéro et de son étiquette (type d'atome).
+     */
     static class Node {
         private int num;
         private String type;
@@ -35,6 +45,11 @@ public class GraphModelisationMulti {
 
     Model model;
 
+    /**
+     * Permet la création d'une instance CSP correspondant à la génération de structure de graphe d'une molécule.
+     * Cette modélisation prend en compte les liaisons simples, doubles, et triples.
+     * @param atom la molécule en question
+     */
    public GraphModelisationMulti(Atom atom) {
 
        // Initialisation du modèle
@@ -135,6 +150,13 @@ public class GraphModelisationMulti {
        }
    }
 
+
+    /**
+     * Permet d'obtenir les liaisons établit entre chaque atome
+     * @param vars la liste des variables du model après résolution
+     * @param n le nombre d'atome de la molécule
+     * @return Renvoie un tableau d'entier pour définir les types de liaisons entre chaque atome.
+     */
     public static int[][] getLiaisons(Variable[] vars, int n) {
         int[][] liaisons = new int[n][n];
 
@@ -156,6 +178,13 @@ public class GraphModelisationMulti {
         return liaisons;
     }
 
+    /**
+     * Permet de traduire les caractèristique d'une variable de graphe de notre modélisation en variable de graphe de la bibliothèqye JGraph.
+     * @param g une variable de graphe de chocosolver
+     * @param types le tableau des types de chaque sommet du graphe pour avoir leur étiquette.
+     * @param liaisons le tableau permettant de connaitre le type de liaisons  entre chaque atome.
+     * @return Renvoie la correspondance du graphe de JGraph.
+     */
    public static Graph translate(GraphVar g, String[] types, int[][] liaisons) {
         Graph<GraphModelisationMulti.Node, DefaultEdge> transG = new SimpleGraph<>(DefaultEdge.class);
         int nbNodes = types.length;
@@ -203,6 +232,11 @@ public class GraphModelisationMulti {
         return transG;
     }
 
+    /**
+     * Permet d'obtenir le format Graphviz pour l'affichage.
+     * @param g un graphe de la bibliothèque JMol
+     * @return Renvoie le format graphviz sous forme de chaine de caractère.
+     */
     public static String getGraphViz(Graph g){
         String gv = "graph G{ \n";
 
