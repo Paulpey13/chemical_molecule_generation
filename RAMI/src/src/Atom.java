@@ -1,6 +1,7 @@
 package src;
 
-import org.chocosolver.util.objects.graphs.UndirectedGraph;
+import org.chocosolver.solver.variables.IntVar;
+import org.chocosolver.solver.variables.Variable;
 
 import java.util.Arrays;
 
@@ -87,4 +88,5 @@ public class Atom {
         }
         return n;
     }
+
 }

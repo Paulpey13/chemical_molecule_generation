@@ -57,7 +57,7 @@ public class Mainviz {
 
             long startTime = System.currentTimeMillis();
             while (model.getSolver().solve()) {
-                int[][] liaisons= getLiaisons(vars,nbrAtom);
+                int[][] liaisons= GraphModelisation.getLiaisons(vars,nbrAtom);
                 listStruct.add(GraphModelisation_double_bonds.translate((GraphVar) vars[1], atom.listTypes(),liaisons));
 
             }
@@ -103,34 +103,15 @@ public class Mainviz {
                             .toFile(new File(graphe_visualizedPath));
 
                 } catch (IOException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }
-    public static int[][] getLiaisons(Variable[] vars, int n) {
-        int[][] liaisons = new int[n][n];
 
-        for (Variable var : vars) {
-            String name = var.getName();
-            if (name.startsWith("Liaison")) {
-                if (var.isInstantiated()) {
-                    int value = ((IntVar) var).getValue(); // Cast en IntVar si c'est le type de vos variables
-                    String[] parts = name.split("_");
-                    int i = Integer.parseInt(parts[1]);
-                    int j = Integer.parseInt(parts[2]);
-
-                    liaisons[i][j] = value;
-                    liaisons[j][i] = value; // Si la liaison est symétrique
-                }
-            }
-        }
-
-        return liaisons;
-    }
 }
