@@ -134,8 +134,6 @@ Ensure these are properly installed and configured before running the project.
 
 Refer to the `examples` folder for sample input files and their corresponding output structures. This can provide a good starting point for understanding how to structure your input files.
 
-mettre des photos de molécule etc ça peut être bien
-
 ## Contributors
 
 - Manon Girard
